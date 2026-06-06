@@ -5,23 +5,23 @@ const genericWhatsappText = "Hola Medano, quiero consultar por suplementos";
 const products = [
   {
     name: "Nutrilab Whey Pro",
-    packshotLabel: "WHEY PRO",
     brand: "Nutrilab",
     category: "masa",
     type: "Proteina",
     goal: "Masa y recuperacion",
     flavor: "Chocolate",
     flavors: ["Chocolate", "Vainilla", "Frutilla"],
-    description: "Proteina en polvo para completar la ingesta diaria y acompañar el post entreno.",
+    description: "Proteina en polvo para completar la ingesta diaria y acompanar el post entreno.",
+    does: "Ayuda a cubrir proteina diaria cuando cuesta llegar solo con comidas.",
+    how: "Se suele usar en batido, desayuno o post entreno. Confirmar porcion segun etiqueta.",
+    pair: "Combina bien con creatina monohidratada o con Crea Shock si buscas un stack de entreno.",
     tags: ["Whey", "Post entreno", "Mas consultado"],
-    price: "$25.308",
-    oldPrice: "$28.120",
-    feature: "Oferta",
-    imageTone: "amber",
+    price: "$25.990",
+    feature: "Mas consultado",
+    image: "https://acdn-us.mitiendanube.com/stores/001/354/710/products/whey-pro-1kg-nutrilab-6d8919ec15cd33483017339392907947-480-0.webp",
   },
   {
     name: "Nutrilab Crea Shock Cafeina",
-    packshotLabel: "CREA SHOCK",
     brand: "Nutrilab",
     category: "energia",
     type: "Pre entreno",
@@ -29,15 +29,17 @@ const products = [
     flavor: "Frutal",
     flavors: ["Frutal", "Citrus"],
     description: "Creatina con cafeina para entrenamientos donde se busca empuje previo.",
+    does: "Apunta a energia, foco y soporte para esfuerzos intensos antes de entrenar.",
+    how: "Usar antes del entrenamiento y revisar tolerancia a cafeina. Evitar cerca del descanso.",
+    pair: "Combina con whey para cubrir recuperacion despues de entrenar.",
     tags: ["Cafeina", "Pre entreno", "Foco"],
-    price: "$19.687",
+    price: "$21.060",
     oldPrice: "$23.380",
-    feature: "Oferta",
-    imageTone: "copper",
+    feature: "Stock visto",
+    image: "https://acdn-us.mitiendanube.com/stores/001/354/710/products/crea-shok-300g-nutrilab-b2844f81f8ac1ef75b17339387539796-480-0.webp",
   },
   {
     name: "Creatina Monohidratada 300g",
-    packshotLabel: "CREATINA",
     brand: "Star Nutrition",
     category: "fuerza",
     type: "Creatina",
@@ -45,14 +47,17 @@ const products = [
     flavor: "Sin sabor",
     flavors: ["Sin sabor"],
     description: "Opcion clasica para rendimiento en esfuerzos cortos e intensos.",
+    does: "Soporta fuerza, potencia y rendimiento repetido en entrenamientos intensos.",
+    how: "Uso diario segun etiqueta. No depende necesariamente del horario de entrenamiento.",
+    pair: "Combina bien con proteina whey y una alimentacion suficiente.",
     tags: ["Sin sabor", "Uso diario", "Fuerza"],
-    price: "Consultar",
-    feature: "Mas vendido",
-    imageTone: "graphite",
+    price: "$31.600",
+    oldPrice: "$34.820",
+    feature: "Oferta",
+    image: "https://acdn-us.mitiendanube.com/stores/001/354/710/products/creatina-300g-doy-pack-star-nutrition-c009a6a92968d1398717195988049794-480-0.webp",
   },
   {
     name: "Whey Protein 1kg",
-    packshotLabel: "WHEY 1KG",
     brand: "HardCore",
     category: "masa",
     type: "Proteina",
@@ -60,15 +65,17 @@ const products = [
     flavor: "Chocolate",
     flavors: ["Chocolate", "Vainilla", "Cookies"],
     description: "Formato de whey proteina para uso diario y practico en casa o gimnasio.",
+    does: "Aporta proteina practica para desayuno, merienda o post entreno.",
+    how: "Preparar con agua o leche segun preferencia y objetivo.",
+    pair: "Puede combinarse con creatina o carbohidratos si el objetivo es volumen.",
     tags: ["Whey", "Recuperacion", "Formato 1kg"],
-    price: "Consultar",
-    oldPrice: "$14.890",
+    price: "$14.890",
+    oldPrice: "$16.900",
     feature: "Oferta",
-    imageTone: "espresso",
+    image: "https://acdn-us.mitiendanube.com/stores/001/354/710/products/frente1-151c87ba61e0c3d3fc16009772401321-480-0.webp",
   },
   {
     name: "Combo Whey Pro + Crea Shock",
-    packshotLabel: "COMBO STACK",
     brand: "Nutrilab",
     category: "combos",
     type: "Combo",
@@ -76,30 +83,34 @@ const products = [
     flavor: "Chocolate + Frutal",
     flavors: ["Chocolate + Frutal"],
     description: "Combo visto en historias: proteina para recuperacion y cafeina/creatina para pre entreno.",
+    does: "Cubre dos momentos clave: pre entreno con energia y post entreno con proteina.",
+    how: "Crea Shock antes de entrenar; Whey Pro como batido diario o post entreno.",
+    pair: "Es un stack cerrado. Se puede sumar creatina pura solo si corresponde.",
     tags: ["Combo", "Proteina", "Cafeina"],
-    price: "$41.500",
-    oldPrice: "Consultar separado",
+    price: "$34.850",
+    oldPrice: "$42.726",
     feature: "Historia IG",
-    imageTone: "mix",
+    image: "https://acdn-us.mitiendanube.com/stores/001/354/710/products/promo-whey-pro-creashock-nutrilab-b2673bda9b3ce9a30817376581984017-480-0.webp",
   },
   {
-    name: "Multivitaminico",
-    packshotLabel: "MULTI",
+    name: "Vitamina C 150g",
     brand: "One Fit",
     category: "bienestar",
     type: "Vitaminas",
     goal: "Bienestar",
     flavor: "Naranja",
     flavors: ["Naranja"],
-    description: "Apoyo general para complementar la alimentacion diaria.",
-    tags: ["Vitaminas", "Minerales", "Rutina"],
-    price: "Consultar",
+    description: "Suplemento de vitamina C en polvo para sumar a la rutina diaria.",
+    does: "Aporta vitamina C para soporte general dentro de una rutina de bienestar.",
+    how: "Usar segun etiqueta, idealmente como parte de una rutina constante.",
+    pair: "Puede combinarse con multivitaminicos o minerales segun necesidad.",
+    tags: ["Vitamina C", "Naranja", "Antioxidante"],
+    price: "$10.900",
     feature: "Salud diaria",
-    imageTone: "sand",
+    image: "https://acdn-us.mitiendanube.com/stores/001/354/710/products/vitamina-c-150g-d692d5d9285d3e703717267805314775-480-0.webp",
   },
   {
     name: "Aminoacidos",
-    packshotLabel: "AMINO",
     brand: "Gentech",
     category: "masa",
     type: "Recuperacion",
@@ -107,14 +118,16 @@ const products = [
     flavor: "Frutilla",
     flavors: ["Frutilla", "Tropical"],
     description: "Alternativa para rutinas con alto volumen de entrenamiento.",
+    does: "Apunta a acompanar recuperacion en rutinas con mucho volumen.",
+    how: "Suele usarse intra o post entreno segun producto y etiqueta.",
+    pair: "Combina con whey si el objetivo principal es recuperacion.",
     tags: ["Intra entreno", "Recuperacion", "Rutina"],
     price: "Consultar",
     feature: "Recuperacion",
-    imageTone: "olive",
+    image: "https://images.unsplash.com/photo-1582719478250-c89cae4dc85b?auto=format&fit=crop&w=900&q=85",
   },
   {
     name: "Quemador / Termogenico",
-    packshotLabel: "THERMO",
     brand: "Ena",
     category: "energia",
     type: "Definicion",
@@ -122,22 +135,15 @@ const products = [
     flavor: "Sin sabor",
     flavors: ["Sin sabor"],
     description: "Producto sensible a tolerancia individual. Consultar antes de usar.",
+    does: "Busca apoyar energia y definicion, pero depende mucho de tolerancia individual.",
+    how: "Consultar antes de usar, especialmente si sos sensible a estimulantes.",
+    pair: "Puede combinarse con proteina, pero conviene evitar mezclar estimulantes.",
     tags: ["Consulta previa", "Energia", "Definicion"],
     price: "Consultar",
     feature: "Definicion",
-    imageTone: "copper",
+    image: "https://images.unsplash.com/photo-1596457224318-4c9eaf5f4f2f?auto=format&fit=crop&w=900&q=85",
   },
 ];
-
-const paletteByTone = {
-  amber: ["#111111", "#c38355", "#f4eee8"],
-  copper: ["#151311", "#a96a46", "#f6eee7"],
-  graphite: ["#171717", "#d0b39b", "#f7f3ef"],
-  espresso: ["#201915", "#b07f55", "#f2e7db"],
-  mix: ["#121212", "#c38355", "#cdb8a6"],
-  sand: ["#1d1a17", "#d8c0a6", "#f6f0ea"],
-  olive: ["#171915", "#9f8a62", "#f1ede7"],
-};
 
 const grid = document.querySelector("#productGrid");
 const offerGrid = document.querySelector("#offerGrid");
@@ -151,77 +157,24 @@ const advisorForm = document.querySelector("#advisorForm");
 const goalSelect = document.querySelector("#goalSelect");
 const levelSelect = document.querySelector("#levelSelect");
 const recommendation = document.querySelector("#recommendation");
+const productDialog = document.querySelector("#productDialog");
+const dialogImage = document.querySelector("#dialogImage");
+const dialogFeature = document.querySelector("#dialogFeature");
+const dialogBrand = document.querySelector("#dialogBrand");
+const dialogName = document.querySelector("#dialogName");
+const dialogType = document.querySelector("#dialogType");
+const dialogDescription = document.querySelector("#dialogDescription");
+const dialogFlavors = document.querySelector("#dialogFlavors");
+const dialogPrice = document.querySelector("#dialogPrice");
+const dialogDoes = document.querySelector("#dialogDoes");
+const dialogHow = document.querySelector("#dialogHow");
+const dialogPair = document.querySelector("#dialogPair");
+const dialogTags = document.querySelector("#dialogTags");
+const dialogWhatsapp = document.querySelector("#dialogWhatsapp");
 
 let activeFilter = "todos";
 let activeBrand = "all";
 let activeFlavor = "all";
-
-function encodeSvg(svg) {
-  return `data:image/svg+xml;charset=UTF-8,${encodeURIComponent(svg)}`;
-}
-
-function productPalette(product) {
-  return paletteByTone[product.imageTone] || paletteByTone.graphite;
-}
-
-function packshotSrc(product) {
-  const [dark, accent, light] = productPalette(product);
-  const label = product.packshotLabel || product.name.toUpperCase();
-  const subtitle = product.brand.toUpperCase();
-  const flavor = (product.flavor || "SIN SABOR").toUpperCase();
-  const isCombo = product.type === "Combo";
-
-  const svg = `
-  <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 900 900" role="img" aria-label="${product.name}">
-    <defs>
-      <linearGradient id="bg" x1="0%" y1="0%" x2="100%" y2="100%">
-        <stop offset="0%" stop-color="${dark}"/>
-        <stop offset="55%" stop-color="#221d19"/>
-        <stop offset="100%" stop-color="${accent}"/>
-      </linearGradient>
-      <linearGradient id="body" x1="0%" y1="0%" x2="0%" y2="100%">
-        <stop offset="0%" stop-color="#2c2723"/>
-        <stop offset="45%" stop-color="#151313"/>
-        <stop offset="100%" stop-color="#0f0f0f"/>
-      </linearGradient>
-      <linearGradient id="label" x1="0%" y1="0%" x2="100%" y2="0%">
-        <stop offset="0%" stop-color="${accent}"/>
-        <stop offset="100%" stop-color="${light}"/>
-      </linearGradient>
-      <filter id="shadow" x="-30%" y="-30%" width="160%" height="160%">
-        <feDropShadow dx="0" dy="20" stdDeviation="18" flood-color="#000000" flood-opacity="0.45"/>
-      </filter>
-    </defs>
-    <rect width="900" height="900" rx="42" fill="url(#bg)"/>
-    <ellipse cx="460" cy="782" rx="250" ry="42" fill="#000000" opacity="0.36"/>
-    ${isCombo ? `
-      <g filter="url(#shadow)" transform="translate(260 190)">
-        <rect x="0" y="64" width="210" height="370" rx="44" fill="url(#body)"/>
-        <rect x="24" y="0" width="162" height="92" rx="28" fill="#191716"/>
-        <rect x="20" y="122" width="170" height="150" rx="28" fill="url(#label)"/>
-        <rect x="20" y="286" width="170" height="110" rx="24" fill="rgba(17,16,15,0.88)"/>
-      </g>
-      <g filter="url(#shadow)" transform="translate(450 230) scale(0.84)">
-        <rect x="0" y="64" width="210" height="370" rx="44" fill="url(#body)"/>
-        <rect x="24" y="0" width="162" height="92" rx="28" fill="#191716"/>
-        <rect x="20" y="122" width="170" height="150" rx="28" fill="url(#label)"/>
-        <rect x="20" y="286" width="170" height="110" rx="24" fill="rgba(17,16,15,0.88)"/>
-      </g>
-    ` : `
-      <g filter="url(#shadow)" transform="translate(275 170)">
-        <rect x="0" y="78" width="280" height="430" rx="58" fill="url(#body)"/>
-        <rect x="34" y="0" width="212" height="118" rx="36" fill="#191716"/>
-        <rect x="24" y="156" width="232" height="188" rx="34" fill="url(#label)"/>
-        <rect x="24" y="360" width="232" height="112" rx="28" fill="rgba(17,16,15,0.9)"/>
-      </g>
-    `}
-    <text x="450" y="382" text-anchor="middle" fill="#111111" font-family="Arial Black, Arial, sans-serif" font-size="52" font-weight="900" letter-spacing="2">${escapeXml(label)}</text>
-    <text x="450" y="436" text-anchor="middle" fill="#111111" font-family="Arial, sans-serif" font-size="24" font-weight="700" letter-spacing="3">${escapeXml(subtitle)}</text>
-    <text x="450" y="746" text-anchor="middle" fill="${light}" font-family="Arial, sans-serif" font-size="30" font-weight="800" letter-spacing="2">${escapeXml(flavor)}</text>
-  </svg>`;
-
-  return encodeSvg(svg);
-}
 
 function escapeXml(value) {
   return String(value)
@@ -229,7 +182,7 @@ function escapeXml(value) {
     .replaceAll("<", "&lt;")
     .replaceAll(">", "&gt;")
     .replaceAll('"', "&quot;")
-    .replaceAll("'", "&apos;");
+    .replaceAll("'", "&#039;");
 }
 
 function whatsappUrlFor(product) {
@@ -250,7 +203,7 @@ function productTemplate(product) {
     <article class="product-card">
       <div class="product-media">
         ${feature}
-        <img src="${packshotSrc(product)}" alt="${product.name}" loading="lazy" />
+        <img src="${product.image}" alt="${product.name}" loading="lazy" />
       </div>
       <div class="product-body">
         <div class="product-top">
@@ -264,7 +217,7 @@ function productTemplate(product) {
         <div class="product-meta">${tags}</div>
         <div class="price-row">
           ${priceTemplate(product)}
-          <a class="secondary-button" href="${whatsappUrlFor(product)}" target="_blank" rel="noreferrer">Consultar</a>
+          <button class="secondary-button detail-button" type="button" data-product="${products.indexOf(product)}">Ver detalle</button>
         </div>
       </div>
     </article>
@@ -275,7 +228,7 @@ function offerTemplate(product) {
   return `
     <article class="offer-card">
       <div class="offer-image">
-        <img src="${packshotSrc(product)}" alt="${product.name}" loading="lazy" />
+        <img src="${product.image}" alt="${product.name}" loading="lazy" />
       </div>
       <div class="offer-body">
         <span class="feature-label">${product.feature || "Oferta"}</span>
@@ -376,6 +329,32 @@ function populateFilters() {
   buildSelectOptions(brandFilter, brands, "Todas las marcas");
   buildSelectOptions(flavorFilter, flavors, "Todos los sabores");
 }
+
+function openProductDetail(product) {
+  dialogImage.src = product.image;
+  dialogImage.alt = product.name;
+  dialogFeature.textContent = product.feature || product.goal;
+  dialogBrand.textContent = product.brand;
+  dialogName.textContent = product.name;
+  dialogType.textContent = product.type;
+  dialogDescription.textContent = product.description;
+  dialogFlavors.textContent = (product.flavors || [product.flavor]).join(", ");
+  dialogPrice.textContent = product.price;
+  dialogDoes.textContent = product.does || product.goal;
+  dialogHow.textContent = product.how || "Consultar uso recomendado segun etiqueta y objetivo.";
+  dialogPair.textContent = product.pair || "Consultar combinaciones segun rutina y tolerancia.";
+  dialogTags.innerHTML = product.tags.map((tag) => `<span>${escapeXml(tag)}</span>`).join("");
+  dialogWhatsapp.href = whatsappUrlFor(product);
+  productDialog.showModal();
+}
+
+document.addEventListener("click", (event) => {
+  const button = event.target.closest("[data-product]");
+  if (!button) return;
+
+  const product = products[Number(button.dataset.product)];
+  if (product) openProductDetail(product);
+});
 
 filterButtons.forEach((button) => {
   button.addEventListener("click", () => setActiveFilter(button.dataset.filter));

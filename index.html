@@ -52,9 +52,41 @@
         </div>
         <img
           class="hero-image"
-          src="https://images.unsplash.com/photo-1593095948071-474c5cc2989d?auto=format&fit=crop&w=1200&q=85"
-          alt="Frascos de suplementos deportivos"
+          src="https://acdn-us.mitiendanube.com/stores/001/354/710/products/promo-whey-pro-creashock-nutrilab-b2673bda9b3ce9a30817376581984017-480-0.webp"
+          alt="Combo real de whey y crea shock de Nutrilab"
         />
+      </section>
+
+      <section class="featured-section" aria-label="Destacados">
+        <div class="section-heading">
+          <div>
+            <p class="eyebrow">Mas vendidos</p>
+            <h2>Productos que suelen salir primero</h2>
+          </div>
+          <a class="secondary-button" href="#catalogo">Ver catalogo</a>
+        </div>
+        <div class="featured-grid">
+          <article class="featured-card">
+            <span class="feature-label">Proteina</span>
+            <strong>Whey Pro</strong>
+            <p>Ideal para sumar proteina diaria, post entreno y desayunos rapidos.</p>
+          </article>
+          <article class="featured-card">
+            <span class="feature-label">Creatina</span>
+            <strong>Creatina Monohidratada</strong>
+            <p>Clasico de fuerza, potencia y rendimiento, con uso simple y diario.</p>
+          </article>
+          <article class="featured-card">
+            <span class="feature-label">Combo</span>
+            <strong>Whey + Crea Shock</strong>
+            <p>La forma mas directa de cubrir recuperacion y empuje pre entrenamiento.</p>
+          </article>
+          <article class="featured-card">
+            <span class="feature-label">Salud</span>
+            <strong>Vitamina C</strong>
+            <p>Una opcion basica para sumar a la rutina de bienestar general.</p>
+          </article>
+        </div>
       </section>
 
       <section class="trust-strip" aria-label="Informacion comercial">
@@ -204,6 +236,55 @@
       <span>Medano Suplementos</span>
       <span>La informacion del sitio es orientativa. Revisar etiquetas, contraindicaciones y consultar a un profesional de salud cuando corresponda.</span>
     </footer>
+
+    <dialog class="product-dialog" id="productDialog">
+      <form method="dialog" class="product-dialog-panel">
+        <button class="dialog-close" value="cancel" aria-label="Cerrar">x</button>
+        <div class="dialog-media">
+          <img id="dialogImage" alt="" />
+        </div>
+        <div class="dialog-body">
+          <span class="feature-label" id="dialogFeature"></span>
+          <div class="product-top">
+            <div>
+              <span class="brand-line" id="dialogBrand"></span>
+              <h3 id="dialogName"></h3>
+            </div>
+            <span class="badge" id="dialogType"></span>
+          </div>
+          <p id="dialogDescription"></p>
+          <div class="dialog-metrics">
+            <div>
+              <span>Sabores</span>
+              <strong id="dialogFlavors"></strong>
+            </div>
+            <div>
+              <span>Precio</span>
+              <strong id="dialogPrice"></strong>
+            </div>
+          </div>
+          <div class="dialog-blocks">
+            <section>
+              <h4>Que hace</h4>
+              <p id="dialogDoes"></p>
+            </section>
+            <section>
+              <h4>Como se usa</h4>
+              <p id="dialogHow"></p>
+            </section>
+            <section>
+              <h4>Con que combinarlo</h4>
+              <p id="dialogPair"></p>
+            </section>
+          </div>
+          <div class="product-meta" id="dialogTags"></div>
+          <div class="dialog-actions">
+            <a class="primary-button" id="dialogWhatsapp" target="_blank" rel="noreferrer">Consultar por WhatsApp</a>
+            <button class="secondary-button" value="cancel" type="submit">Cerrar</button>
+          </div>
+        </div>
+      </form>
+    </dialog>
 
     <script src="./script.js"></script>
   </body>
