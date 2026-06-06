@@ -165,7 +165,6 @@ const dialogName = document.querySelector("#dialogName");
 const dialogType = document.querySelector("#dialogType");
 const dialogDescription = document.querySelector("#dialogDescription");
 const dialogFlavors = document.querySelector("#dialogFlavors");
-const dialogPrice = document.querySelector("#dialogPrice");
 const dialogDoes = document.querySelector("#dialogDoes");
 const dialogHow = document.querySelector("#dialogHow");
 const dialogPair = document.querySelector("#dialogPair");
@@ -190,11 +189,6 @@ function whatsappUrlFor(product) {
   return `${whatsappBase}?text=${encodeURIComponent(text)}`;
 }
 
-function priceTemplate(product) {
-  const oldPrice = product.oldPrice ? `<small>${product.oldPrice}</small>` : "";
-  return `<span class="price">${oldPrice}${product.price}</span>`;
-}
-
 function productTemplate(product) {
   const tags = product.tags.map((tag) => `<span>${tag}</span>`).join("");
   const feature = product.feature ? `<span class="feature-label">${product.feature}</span>` : "";
@@ -216,8 +210,8 @@ function productTemplate(product) {
         <p>${product.description}</p>
         <div class="product-meta">${tags}</div>
         <div class="price-row">
-          ${priceTemplate(product)}
           <button class="secondary-button detail-button" type="button" data-product="${products.indexOf(product)}">Ver detalle</button>
+          <a class="primary-button" href="${whatsappUrlFor(product)}" target="_blank" rel="noreferrer">Consultar</a>
         </div>
       </div>
     </article>
@@ -242,7 +236,6 @@ function offerTemplate(product) {
         <p>${product.description}</p>
         <div class="product-meta">${product.tags.map((tag) => `<span>${tag}</span>`).join("")}</div>
         <div class="price-row">
-          ${priceTemplate(product)}
           <a class="primary-button" href="${whatsappUrlFor(product)}" target="_blank" rel="noreferrer">Pedir</a>
         </div>
       </div>
@@ -258,7 +251,6 @@ function comboTemplate(product) {
       <p>${product.description}</p>
       <div class="product-meta">${product.tags.map((tag) => `<span>${tag}</span>`).join("")}</div>
       <div class="price-row">
-        ${priceTemplate(product)}
         <a class="primary-button" href="${whatsappUrlFor(product)}" target="_blank" rel="noreferrer">Reservar</a>
       </div>
     </article>
@@ -303,7 +295,7 @@ function renderProducts() {
 }
 
 function renderOffers() {
-  const offers = products.filter((product) => product.oldPrice && product.category !== "combos");
+  const offers = products.filter((product) => product.feature === "Oferta" || product.feature === "Stock visto");
   offerGrid.innerHTML = offers.length
     ? offers.map(offerTemplate).join("")
     : `<p class="muted">No hay ofertas cargadas por ahora.</p>`;
@@ -339,7 +331,6 @@ function openProductDetail(product) {
   dialogType.textContent = product.type;
   dialogDescription.textContent = product.description;
   dialogFlavors.textContent = (product.flavors || [product.flavor]).join(", ");
-  dialogPrice.textContent = product.price;
   dialogDoes.textContent = product.does || product.goal;
   dialogHow.textContent = product.how || "Consultar uso recomendado segun etiqueta y objetivo.";
   dialogPair.textContent = product.pair || "Consultar combinaciones segun rutina y tolerancia.";

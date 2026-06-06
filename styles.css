@@ -243,7 +243,8 @@ h3 {
   height: 100%;
   min-height: 420px;
   object-fit: cover;
-  background: #f7f3ef;
+  background: #050505;
+  mix-blend-mode: darken;
 }
 
 .featured-section {
@@ -443,8 +444,8 @@ h3 {
   place-items: end start;
   padding: 14px;
   background:
-    linear-gradient(135deg, rgba(244, 238, 232, 0.12) 0%, rgba(195, 131, 85, 0.22) 100%),
-    #181716;
+    radial-gradient(circle at top, rgba(195, 131, 85, 0.2), transparent 56%),
+    #050505;
 }
 
 .feature-label {
@@ -472,6 +473,7 @@ h3 {
   height: 100%;
   object-fit: contain;
   filter: drop-shadow(0 16px 18px rgba(0, 0, 0, 0.36));
+  mix-blend-mode: darken;
 }
 
 .product-body {
@@ -586,7 +588,7 @@ h3 {
   padding: 12px;
   background:
     radial-gradient(circle at top, rgba(195, 131, 85, 0.18), transparent 52%),
-    linear-gradient(135deg, rgba(244, 238, 232, 0.08), rgba(17, 16, 15, 0.95));
+    #050505;
 }
 
 .offer-image img {
@@ -595,6 +597,7 @@ h3 {
   min-height: 240px;
   object-fit: contain;
   border-radius: 6px;
+  mix-blend-mode: darken;
 }
 
 .offer-body {
@@ -773,6 +776,33 @@ h3 {
   color: var(--ink);
 }
 
+.floating-whatsapp {
+  position: fixed;
+  right: 18px;
+  bottom: 18px;
+  z-index: 30;
+  display: inline-flex;
+  align-items: center;
+  gap: 10px;
+  border: 1px solid #222;
+  border-radius: 999px;
+  background: #000;
+  color: #fff;
+  padding: 13px 16px;
+  box-shadow: 0 18px 32px rgba(0, 0, 0, 0.35);
+}
+
+.floating-whatsapp svg {
+  width: 20px;
+  height: 20px;
+  fill: currentColor;
+}
+
+.floating-whatsapp span {
+  font-size: 0.9rem;
+  font-weight: 900;
+}
+
 .contact-section .muted {
   max-width: 760px;
   color: var(--muted);
@@ -875,6 +905,12 @@ h3 {
 
   .dialog-metrics {
     grid-template-columns: 1fr;
+  }
+
+  .floating-whatsapp {
+    right: 14px;
+    bottom: 14px;
+    padding: 12px 14px;
   }
 
   h1 {
