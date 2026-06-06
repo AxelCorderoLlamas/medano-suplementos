@@ -1,6 +1,6 @@
 # Medano Suplementos
 
-Sitio estático inicial para Medano Elementos y Nutrición.
+Sitio estatico inicial para Medano Suplementos.
 
 ## Contenido
 
@@ -16,4 +16,3 @@ Este proyecto es estático. En Vercel se puede importar el repositorio y usar:
 - Framework Preset: `Other`
 - Build Command: vacío
 - Output Directory: `.`
-
