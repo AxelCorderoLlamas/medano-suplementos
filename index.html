@@ -1,0 +1,136 @@
+<!doctype html>
+<html lang="es">
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <title>Medano | Elementos y Nutrición</title>
+    <meta
+      name="description"
+      content="Catálogo de suplementos deportivos de Médano Suplementos. Proteínas, creatinas, pre entrenos, vitaminas y accesorios."
+    />
+    <link rel="preconnect" href="https://images.unsplash.com" />
+    <link rel="stylesheet" href="./styles.css" />
+  </head>
+  <body>
+    <header class="site-header">
+      <a class="brand" href="#inicio" aria-label="Medano Elementos y Nutrición">
+        <img class="brand-logo" src="./assets/logo-medano.svg" alt="" />
+        <span>
+          <strong>Medano</strong>
+          <small>Elementos y nutrición</small>
+        </span>
+      </a>
+      <nav class="main-nav" aria-label="Principal">
+        <a href="#catalogo">Catálogo</a>
+        <a href="#recomendador">Recomendador</a>
+        <a href="#contacto">Contacto</a>
+      </nav>
+      <a class="icon-button" href="https://www.instagram.com/medanosuplementos/" target="_blank" rel="noreferrer" aria-label="Instagram">
+        <svg aria-hidden="true" viewBox="0 0 24 24"><path d="M7.8 2h8.4A5.8 5.8 0 0 1 22 7.8v8.4a5.8 5.8 0 0 1-5.8 5.8H7.8A5.8 5.8 0 0 1 2 16.2V7.8A5.8 5.8 0 0 1 7.8 2Zm0 2A3.8 3.8 0 0 0 4 7.8v8.4A3.8 3.8 0 0 0 7.8 20h8.4a3.8 3.8 0 0 0 3.8-3.8V7.8A3.8 3.8 0 0 0 16.2 4H7.8Zm8.7 2.1a1.4 1.4 0 1 1 0 2.8 1.4 1.4 0 0 1 0-2.8ZM12 7a5 5 0 1 1 0 10 5 5 0 0 1 0-10Zm0 2a3 3 0 1 0 0 6 3 3 0 0 0 0-6Z"/></svg>
+      </a>
+    </header>
+
+    <main id="inicio">
+      <section class="hero">
+        <div class="hero-copy">
+          <p class="eyebrow">Catálogo inicial</p>
+          <h1>Medano</h1>
+          <p>
+            Suplementos deportivos en Miramar para MTB, gym, outdoor y actividad física en general.
+          </p>
+          <div class="hero-actions">
+            <a class="primary-button" href="#catalogo">Ver productos</a>
+            <a class="secondary-button" href="https://wa.me/5492291414853?text=Hola%20Medano%2C%20quiero%20consultar%20por%20suplementos" target="_blank" rel="noreferrer">Consultar stock</a>
+          </div>
+          <div class="hero-points" aria-label="Servicios">
+            <span>Miramar</span>
+            <span>Envíos a todo el país</span>
+            <span>Asesoramiento sin compromiso</span>
+          </div>
+        </div>
+        <img
+          class="hero-image"
+          src="https://images.unsplash.com/photo-1593095948071-474c5cc2989d?auto=format&fit=crop&w=1200&q=85"
+          alt="Frascos de suplementos y nutrición deportiva"
+        />
+      </section>
+
+      <section class="catalog-section" id="catalogo">
+        <div class="section-heading">
+          <div>
+            <p class="eyebrow">Stock destacado</p>
+            <h2>Productos</h2>
+          </div>
+          <label class="search">
+            <span>Buscar</span>
+            <input id="searchInput" type="search" placeholder="Proteína, creatina, energía..." />
+          </label>
+        </div>
+
+        <div class="filters" aria-label="Filtros de catálogo">
+          <button class="filter-button is-active" data-filter="todos">Todos</button>
+          <button class="filter-button" data-filter="masa">Masa muscular</button>
+          <button class="filter-button" data-filter="fuerza">Fuerza</button>
+          <button class="filter-button" data-filter="energia">Energía</button>
+          <button class="filter-button" data-filter="bienestar">Bienestar</button>
+        </div>
+
+        <div class="product-grid" id="productGrid"></div>
+      </section>
+
+      <section class="advisor-section" id="recomendador">
+        <div class="advisor-panel">
+          <div>
+            <p class="eyebrow">Próximo bot</p>
+          <h2>Recomendador rápido</h2>
+            <p class="muted">
+              Una primera lógica para orientar la consulta. No reemplaza indicación médica ni nutricional.
+            </p>
+          </div>
+          <form class="advisor-form" id="advisorForm">
+            <label>
+              Objetivo
+              <select id="goalSelect">
+                <option value="masa">Ganar masa muscular</option>
+                <option value="fuerza">Mejorar fuerza</option>
+                <option value="energia">Más energía para entrenar</option>
+                <option value="bienestar">Bienestar general</option>
+              </select>
+            </label>
+            <label>
+              Experiencia
+              <select id="levelSelect">
+                <option value="inicio">Estoy arrancando</option>
+                <option value="medio">Entreno seguido</option>
+                <option value="avanzado">Busco algo específico</option>
+              </select>
+            </label>
+            <button class="primary-button" type="submit">Recomendar</button>
+          </form>
+          <div class="recommendation" id="recommendation" aria-live="polite"></div>
+        </div>
+      </section>
+
+      <section class="contact-section" id="contacto">
+        <div>
+          <p class="eyebrow">Atención directa</p>
+          <h2>Consultá disponibilidad</h2>
+          <p class="muted">
+            Pedí sabores, precios actualizados y opciones según tu objetivo. Atención por Instagram o WhatsApp.
+          </p>
+        </div>
+        <div class="contact-actions">
+          <a class="primary-button" href="https://www.instagram.com/medanosuplementos/" target="_blank" rel="noreferrer">Instagram</a>
+          <a class="secondary-button" href="https://wa.me/5492291414853?text=Hola%20Medano%2C%20quiero%20consultar%20por%20suplementos" target="_blank" rel="noreferrer">2291414853</a>
+        </div>
+      </section>
+    </main>
+
+    <footer class="site-footer">
+      <span>Medano Elementos y Nutrición</span>
+      <span>La información del sitio es orientativa. Revisar etiquetas, contraindicaciones y consultar a un profesional de salud cuando corresponda.</span>
+    </footer>
+
+    <script src="./script.js"></script>
+  </body>
+</html>

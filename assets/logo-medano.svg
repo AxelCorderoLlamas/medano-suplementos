@@ -1,0 +1,10 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 420 250" role="img" aria-labelledby="title desc">
+  <title id="title">Médano Elementos y Nutrición</title>
+  <desc id="desc">Isotipo de médanos sobre la palabra Médano.</desc>
+  <rect width="420" height="250" rx="18" fill="#1c1c1c"/>
+  <path d="M92 83 185 42l42 32-39-11-42 20h-54Z" fill="#f4eee8"/>
+  <path d="M185 42 271 85h58L227 74l-42-32Z" fill="#c38355"/>
+  <path d="M129 87h63l37-18 39 14 49 8h-82l-42-16-34 16h-30Z" fill="#f4eee8"/>
+  <text x="210" y="146" text-anchor="middle" fill="#f7f3ef" font-family="Arial Black, Arial, sans-serif" font-size="56" font-weight="900" letter-spacing="2">MEDANO</text>
+  <text x="210" y="177" text-anchor="middle" fill="#cdb8a6" font-family="Arial, sans-serif" font-size="18" font-weight="700" letter-spacing="3">ELEMENTOS Y NUTRICION</text>
+</svg>
