@@ -22,6 +22,7 @@
       </a>
       <nav class="main-nav" aria-label="Principal">
         <a href="#catalogo">Catalogo</a>
+        <a href="#ofertas">Ofertas</a>
         <a href="#combos">Combos</a>
         <a href="#recomendador">Recomendador</a>
         <a href="#contacto">Contacto</a>
@@ -101,10 +102,20 @@
             <h2>Productos</h2>
             <p class="muted" id="catalogCount"></p>
           </div>
-          <label class="search">
-            <span>Buscar</span>
-            <input id="searchInput" type="search" placeholder="Proteina, creatina, cafeina..." />
-          </label>
+          <div class="catalog-tools">
+            <label class="search">
+              <span>Buscar</span>
+              <input id="searchInput" type="search" placeholder="Proteina, creatina, cafeina..." />
+            </label>
+            <label class="search">
+              <span>Marca</span>
+              <select id="brandFilter"></select>
+            </label>
+            <label class="search">
+              <span>Sabor</span>
+              <select id="flavorFilter"></select>
+            </label>
+          </div>
         </div>
 
         <div class="filters" aria-label="Filtros de catalogo">
@@ -117,6 +128,17 @@
         </div>
 
         <div class="product-grid" id="productGrid"></div>
+      </section>
+
+      <section class="offer-section" id="ofertas">
+        <div class="section-heading">
+          <div>
+            <p class="eyebrow">Ofertas</p>
+            <h2>Productos con descuento</h2>
+          </div>
+          <a class="secondary-button" href="https://wa.me/5492291414853?text=Hola%20Medano%2C%20quiero%20consultar%20las%20ofertas" target="_blank" rel="noreferrer">Consultar ofertas</a>
+        </div>
+        <div class="offer-grid" id="offerGrid"></div>
       </section>
 
       <section class="combo-section" id="combos">
