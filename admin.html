@@ -40,15 +40,118 @@
           <div class="section-heading">
             <div>
               <p class="eyebrow">Catalogo</p>
-              <h2>Editor JSON</h2>
-              <p class="muted">Guardado directo sobre <code>data/catalog.json</code>.</p>
+              <h2>Productos editables</h2>
+              <p class="muted">Edita cada producto con campos simples. El guardado actualiza el catalogo para la web.</p>
             </div>
             <div class="admin-card-actions">
+              <label class="admin-search">
+                <span>Buscar</span>
+                <input type="search" id="catalogSearchInput" placeholder="Nombre, marca o tipo" />
+              </label>
+              <button class="secondary-button" type="button" id="newProductButton">Nuevo producto</button>
               <button class="secondary-button" type="button" id="reloadCatalogButton">Recargar</button>
-              <button class="primary-button" type="button" id="saveCatalogButton">Guardar cambios</button>
+              <button class="primary-button" type="button" id="saveCatalogButton">Guardar todo</button>
             </div>
           </div>
-          <textarea id="catalogEditor" spellcheck="false"></textarea>
+          <div class="catalog-manager">
+            <div class="catalog-list" id="catalogList"></div>
+            <p class="admin-status" id="catalogCountStatus" aria-live="polite"></p>
+            <form class="product-form" id="productForm">
+              <div class="section-heading product-form-head">
+                <div>
+                  <p class="eyebrow">Producto</p>
+                  <h3 id="productFormTitle">Editar producto</h3>
+                  <p class="muted">Completa los datos y luego guarda los cambios del catalogo.</p>
+                </div>
+                <div class="admin-card-actions">
+                  <button class="secondary-button" type="button" id="duplicateProductButton">Duplicar</button>
+                  <button class="secondary-button" type="button" id="deleteProductButton">Eliminar</button>
+                </div>
+              </div>
+
+              <input type="hidden" id="productId" />
+
+              <label>
+                Nombre
+                <input type="text" id="productName" placeholder="Ej: Whey Protein 1kg" required />
+              </label>
+              <label>
+                Marca
+                <input type="text" id="productBrand" placeholder="Ej: Nutrilab" required />
+              </label>
+              <div class="product-form-grid">
+                <label>
+                  Categoria
+                  <select id="productCategory">
+                    <option value="masa">Masa muscular</option>
+                    <option value="fuerza">Fuerza</option>
+                    <option value="energia">Energía</option>
+                    <option value="bienestar">Bienestar</option>
+                    <option value="combos">Combos</option>
+                  </select>
+                </label>
+                <label>
+                  Tipo
+                  <input type="text" id="productType" placeholder="Ej: Proteina" required />
+                </label>
+              </div>
+              <div class="product-form-grid">
+                <label>
+                  Objetivo
+                  <input type="text" id="productGoal" placeholder="Ej: Masa y recuperacion" />
+                </label>
+                <label>
+                  Sabor principal
+                  <input type="text" id="productFlavor" placeholder="Ej: Chocolate" />
+                </label>
+              </div>
+              <div class="product-form-grid">
+                <label>
+                  Sabores disponibles
+                  <input type="text" id="productFlavors" placeholder="Separados por coma" />
+                </label>
+                <label>
+                  Etiquetas
+                  <input type="text" id="productTags" placeholder="Separadas por coma" />
+                </label>
+              </div>
+              <div class="product-form-grid">
+                <label>
+                  Precio
+                  <input type="text" id="productPrice" placeholder="Ej: $25.990" />
+                </label>
+                <label>
+                  Precio anterior
+                  <input type="text" id="productOldPrice" placeholder="Opcional" />
+                </label>
+              </div>
+              <label>
+                Destacado
+                <input type="text" id="productFeature" placeholder="Ej: Oferta, Salud diaria, Historia IG" />
+              </label>
+              <label>
+                Descripcion
+                <textarea id="productDescription" rows="3" placeholder="Descripcion corta del producto"></textarea>
+              </label>
+              <label>
+                Que hace
+                <textarea id="productDoes" rows="3" placeholder="Beneficio principal"></textarea>
+              </label>
+              <label>
+                Como se usa
+                <textarea id="productHow" rows="3" placeholder="Uso sugerido"></textarea>
+              </label>
+              <label>
+                Con que combinarlo
+                <textarea id="productPair" rows="3" placeholder="Opciones de combinacion"></textarea>
+              </label>
+              <label>
+                Imagen
+                <input type="url" id="productImage" placeholder="URL de imagen" />
+              </label>
+              <p class="admin-status" id="productStatus" aria-live="polite"></p>
+            </form>
+          </div>
           <p class="admin-status" id="catalogStatus" aria-live="polite"></p>
         </article>
 
