@@ -1,0 +1,157 @@
+%PDF-1.4
+1 0 obj
+<< /Type /Catalog /Pages 2 0 R >>
+endobj
+2 0 obj
+<< /Type /Pages /Kids [ 4 0 R 6 0 R ] /Count 2 >>
+endobj
+3 0 obj
+<< /Length 2130 >>
+stream
+BT
+/F1 11 Tf
+1 0 0 1 48 786 Tm
+(DOCUMENTACION FUNCIONAL) Tj
+0 -16 Td
+0 -16 Td
+0 -16 Td
+(Sitio publico) Tj
+0 -16 Td
+0 -16 Td
+0 -16 Td
+(  - Muestra un hero inicial con llamados a la accion.) Tj
+0 -16 Td
+(  - Tiene secciones de tienda, catalogo, ofertas, combos, recomendador y contacto.) Tj
+0 -16 Td
+(  - Permite buscar y filtrar productos por categoria, marca y sabor.) Tj
+0 -16 Td
+(  - Cada producto abre un detalle con descripcion, uso, combinaciones y link a WhatsApp.) Tj
+0 -16 Td
+(  - El carrito permite agregar, quitar y editar cantidades.) Tj
+0 -16 Td
+(  - El checkout envia el pedido por email.) Tj
+0 -16 Td
+0 -16 Td
+(Tienda) Tj
+0 -16 Td
+0 -16 Td
+0 -16 Td
+(  - El usuario ve productos destacados en la tienda.) Tj
+0 -16 Td
+(  - Puede agregar productos al carrito desde las tarjetas.) Tj
+0 -16 Td
+(  - Puede revisar el resumen antes de enviar.) Tj
+0 -16 Td
+(  - El pedido se envia por email al correo configurado.) Tj
+0 -16 Td
+(  - La persona recibe tambien un registro en el panel admin.) Tj
+0 -16 Td
+0 -16 Td
+(Catalogo) Tj
+0 -16 Td
+0 -16 Td
+0 -16 Td
+(  - El catalogo se carga desde el backend.) Tj
+0 -16 Td
+(  - Los productos pueden tener precio visible u oculto.) Tj
+0 -16 Td
+(  - Si el precio esta oculto, la web no lo muestra.) Tj
+0 -16 Td
+(  - Los productos pueden incluir imagen, marca, categoria, tipo, objetivo, sabor, etiquetas) Tj
+0 -16 Td
+(  y texto descriptivo.) Tj
+0 -16 Td
+0 -16 Td
+(Panel admin) Tj
+0 -16 Td
+0 -16 Td
+0 -16 Td
+(  - El panel se accede por `/login`.) Tj
+0 -16 Td
+(  - El panel principal se accede por `/admin`.) Tj
+0 -16 Td
+(  - El login exige clave, reCAPTCHA y validacion de sesion.) Tj
+0 -16 Td
+(  - En `Productos editables` se puede buscar, crear, duplicar, eliminar y guardar productos.) Tj
+0 -16 Td
+(  - En `Pedidos` se pueden ver los ultimos pedidos recibidos.) Tj
+0 -16 Td
+(  - Desde el editor se puede subir imagenes al repositorio.) Tj
+0 -16 Td
+(  - El campo `Precio publico` controla si el precio se ve o no en el sitio.) Tj
+0 -16 Td
+0 -16 Td
+(Comportamiento esperado) Tj
+0 -16 Td
+0 -16 Td
+0 -16 Td
+(  - Si el precio esta oculto, no se ve en tarjetas ni en el detalle.) Tj
+0 -16 Td
+ET
+endstream
+endobj
+4 0 obj
+<< /Length 918 >>
+stream
+BT
+/F1 11 Tf
+1 0 0 1 48 786 Tm
+(  - Si el login falla muchas veces, se bloquea temporalmente.) Tj
+0 -16 Td
+(  - Si se detecta spam basico en el checkout, el pedido se rechaza.) Tj
+0 -16 Td
+(  - Si la verificacion de Google reCAPTCHA falla, el login no avanza.) Tj
+0 -16 Td
+0 -16 Td
+(Estados importantes) Tj
+0 -16 Td
+0 -16 Td
+0 -16 Td
+(  - `Sitio publico`: disponible para todos.) Tj
+0 -16 Td
+(  - `Admin bloqueado`: sin sesion valida o sin captcha.) Tj
+0 -16 Td
+(  - `Login fallido`: clave invalida o captcha incompleto.) Tj
+0 -16 Td
+(  - `Pedido enviado`: el pedido ya fue remitido por email.) Tj
+0 -16 Td
+(  - `Pedido rechazado`: el honeypot se lleno o faltan datos.) Tj
+0 -16 Td
+0 -16 Td
+(Canales de contacto) Tj
+0 -16 Td
+0 -16 Td
+0 -16 Td
+(  - WhatsApp para consultas rapidas.) Tj
+0 -16 Td
+(  - Instagram para contacto y visibilidad.) Tj
+0 -16 Td
+(  - Email para los pedidos generados por checkout.) Tj
+0 -16 Td
+ET
+endstream
+endobj
+5 0 obj
+<< /Type /Page /Parent 2 0 R /MediaBox [0 0 595 842] /Resources << /Font << /F1 7 0 R >> >> /Contents 3 0 R >>
+endobj
+6 0 obj
+<< /Type /Page /Parent 2 0 R /MediaBox [0 0 595 842] /Resources << /Font << /F1 7 0 R >> >> /Contents 5 0 R >>
+endobj
+7 0 obj
+<< /Type /Font /Subtype /Type1 /BaseFont /Helvetica >>
+endobj
+xref
+0 8
+0000000000 65535 f 
+0000000009 00000 n 
+0000000058 00000 n 
+0000000123 00000 n 
+0000002305 00000 n 
+0000003274 00000 n 
+0000003400 00000 n 
+0000003526 00000 n 
+trailer
+<< /Size 8 /Root 1 0 R >>
+startxref
+3596
+%%EOF

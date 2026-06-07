@@ -14,6 +14,7 @@ Sitio estatico para Medano Suplementos con catalogo, tienda, admin y envio de pe
 ## Documentacion
 
 - [Documentacion funcional](docs/funcional.md)
+- [Documentacion funcional PDF](docs/funcional.pdf)
 - [Documentacion tecnica](docs/tecnica.md)
 - [Guia para la persona](docs/handoff.md)
 
