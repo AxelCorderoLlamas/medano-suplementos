@@ -1,6 +1,9 @@
 const instagramUrl = "https://www.instagram.com/medanosuplementos/";
 const whatsappBase = "https://wa.me/5492291414853";
 const genericWhatsappText = "Hola Medano, quiero consultar por suplementos";
+const siteHeader = document.querySelector(".site-header");
+const menuToggle = document.querySelector("#menuToggle");
+const mainNav = document.querySelector("#mainNav");
 
 const defaultProducts = [
   {
@@ -312,6 +315,13 @@ function setOrderStatus(message, type = "") {
   orderStatus.textContent = message;
   orderStatus.classList.toggle("is-error", type === "error");
   orderStatus.classList.toggle("is-success", type === "success");
+}
+
+function setMenuOpen(isOpen) {
+  if (!menuToggle || !mainNav || !siteHeader) return;
+  siteHeader.classList.toggle("is-menu-open", isOpen);
+  menuToggle.setAttribute("aria-expanded", String(isOpen));
+  menuToggle.setAttribute("aria-label", isOpen ? "Cerrar menu" : "Abrir menu");
 }
 
 function addToCart(id, qty = 1) {
@@ -629,6 +639,26 @@ advisorForm.addEventListener("submit", (event) => {
 scrollToCartButton.addEventListener("click", () => {
   cartPanel.scrollIntoView({ behavior: "smooth", block: "start" });
 });
+
+if (menuToggle && mainNav) {
+  menuToggle.addEventListener("click", () => {
+    setMenuOpen(!siteHeader.classList.contains("is-menu-open"));
+  });
+
+  mainNav.querySelectorAll("a").forEach((link) => {
+    link.addEventListener("click", () => {
+      if (window.matchMedia("(max-width: 980px)").matches) {
+        setMenuOpen(false);
+      }
+    });
+  });
+
+  window.addEventListener("resize", () => {
+    if (!window.matchMedia("(max-width: 980px)").matches) {
+      setMenuOpen(false);
+    }
+  });
+}
 
 document.addEventListener("click", (event) => {
   const addButton = event.target.closest("[data-add-to-cart]");
