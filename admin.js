@@ -4,6 +4,8 @@ const catalogCountStatus = document.querySelector("#catalogCountStatus");
 const ordersStatus = document.querySelector("#ordersStatus");
 const ordersList = document.querySelector("#ordersList");
 const adminStats = document.querySelector("#adminStats");
+const adminTabs = document.querySelectorAll("[data-admin-tab]");
+const adminPanels = document.querySelectorAll("[data-admin-panel]");
 const saveCatalogButton = document.querySelector("#saveCatalogButton");
 const reloadCatalogButton = document.querySelector("#reloadCatalogButton");
 const refreshOrdersButton = document.querySelector("#refreshOrdersButton");
@@ -40,6 +42,7 @@ let catalogCache = [];
 let ordersCache = [];
 let selectedProductId = "";
 let catalogSearchTerm = "";
+let activeAdminTab = window.localStorage.getItem("admin-active-tab") || "catalog";
 
 function escapeHtml(value) {
   return String(value)
@@ -70,6 +73,22 @@ function setStatus(element, message, type = "") {
   element.textContent = message;
   element.classList.toggle("is-error", type === "error");
   element.classList.toggle("is-success", type === "success");
+}
+
+function setActiveTab(tabName) {
+  activeAdminTab = tabName === "orders" ? "orders" : "catalog";
+  window.localStorage.setItem("admin-active-tab", activeAdminTab);
+
+  adminTabs.forEach((button) => {
+    const isActive = button.dataset.adminTab === activeAdminTab;
+    button.classList.toggle("is-active", isActive);
+    button.setAttribute("aria-selected", String(isActive));
+  });
+
+  adminPanels.forEach((panel) => {
+    const isActive = panel.dataset.adminPanel === activeAdminTab;
+    panel.hidden = !isActive;
+  });
 }
 
 function formatDate(value) {
@@ -428,6 +447,12 @@ catalogList.addEventListener("click", (event) => {
 
 catalogSearchInput.addEventListener("input", applyCatalogSearch);
 
+adminTabs.forEach((button) => {
+  button.addEventListener("click", () => {
+    setActiveTab(button.dataset.adminTab || "catalog");
+  });
+});
+
 productImageInput.addEventListener("input", () => {
   updateImagePreview(productImageInput.value);
 });
@@ -478,6 +503,8 @@ uploadImageButton.addEventListener("click", async () => {
   if (!authenticated) {
     return;
   }
+
+  setActiveTab(activeAdminTab);
 
   try {
     await Promise.all([loadCatalog(), loadOrders()]);

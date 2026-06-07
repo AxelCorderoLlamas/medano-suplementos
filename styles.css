@@ -1349,17 +1349,56 @@ h3 {
   text-transform: uppercase;
 }
 
-.admin-grid {
-  display: grid;
-  grid-template-columns: minmax(0, 1.2fr) minmax(340px, 0.8fr);
-  gap: 18px;
-  align-items: start;
+.admin-tabs {
+  display: inline-flex;
+  flex-wrap: wrap;
+  gap: 10px;
+  padding: 10px;
+  border: 1px solid rgba(255, 255, 255, 0.08);
+  border-radius: 24px;
+  background: rgba(10, 13, 18, 0.88);
+  box-shadow: var(--shadow-soft);
 }
 
-.admin-grid > .admin-card:last-child {
-  position: sticky;
-  top: 18px;
-  align-self: start;
+.admin-tab {
+  min-height: 48px;
+  border: 1px solid rgba(255, 255, 255, 0.1);
+  border-radius: 999px;
+  background: rgba(255, 255, 255, 0.04);
+  color: var(--muted);
+  padding: 12px 18px;
+  font-family: "Rajdhani", "Inter", ui-sans-serif, system-ui, sans-serif;
+  font-weight: 900;
+  letter-spacing: 0.08em;
+  text-transform: uppercase;
+  transition:
+    transform 160ms ease,
+    background 160ms ease,
+    border-color 160ms ease,
+    color 160ms ease,
+    box-shadow 160ms ease;
+}
+
+.admin-tab:hover {
+  transform: translateY(-1px);
+  border-color: rgba(255, 255, 255, 0.16);
+  color: var(--text);
+}
+
+.admin-tab.is-active {
+  border-color: transparent;
+  background: linear-gradient(135deg, var(--brand), #ff7849);
+  color: #ffffff;
+  box-shadow: 0 16px 28px rgba(255, 90, 31, 0.24);
+}
+
+.admin-panels {
+  display: grid;
+  gap: 18px;
+}
+
+.admin-panel {
+  width: 100%;
 }
 
 .admin-card {
@@ -1804,13 +1843,8 @@ h3 {
   .advisor-panel,
   .offer-card,
   .product-dialog-panel,
-  .catalog-manager,
-  .admin-grid {
+  .catalog-manager {
     grid-template-columns: 1fr;
-  }
-
-  .admin-grid > .admin-card:last-child {
-    position: static;
   }
 
   .catalog-list,
@@ -1818,6 +1852,10 @@ h3 {
   #catalogCountStatus {
     grid-column: auto;
     grid-row: auto;
+  }
+
+  .admin-tabs {
+    width: 100%;
   }
 
   .hero-visual {

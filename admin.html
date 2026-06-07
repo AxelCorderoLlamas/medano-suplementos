@@ -35,8 +35,17 @@
         <div class="admin-stats" id="adminStats"></div>
       </section>
 
-      <section class="admin-grid">
-        <article class="admin-card">
+      <div class="admin-tabs" role="tablist" aria-label="Secciones del panel">
+        <button class="admin-tab is-active" type="button" data-admin-tab="catalog" role="tab" aria-selected="true" aria-controls="catalogPanel">
+          Productos editables
+        </button>
+        <button class="admin-tab" type="button" data-admin-tab="orders" role="tab" aria-selected="false" aria-controls="ordersPanel">
+          Pedidos
+        </button>
+      </div>
+
+      <section class="admin-panels">
+        <article class="admin-card admin-panel" id="catalogPanel" data-admin-panel="catalog" role="tabpanel">
           <div class="section-heading">
             <div>
               <p class="eyebrow">Catalogo</p>
@@ -169,7 +178,7 @@
           <p class="admin-status" id="catalogStatus" aria-live="polite"></p>
         </article>
 
-        <article class="admin-card">
+        <article class="admin-card admin-panel" id="ordersPanel" data-admin-panel="orders" role="tabpanel" hidden>
           <div class="section-heading">
             <div>
               <p class="eyebrow">Pedidos</p>
