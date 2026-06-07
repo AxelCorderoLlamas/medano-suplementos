@@ -1,5 +1,6 @@
 const { createSessionValue, setSessionCookie, verifyAdminPassword } = require("../../lib/admin-auth");
 const { applyRateLimit } = require("../../lib/rate-limit");
+const { clearLoginFailures, isLoginLocked, registerLoginFailure } = require("../../lib/login-guard");
 
 async function readJsonBody(req) {
   const chunks = [];
@@ -32,6 +33,14 @@ module.exports = async function handler(req, res) {
     });
   }
 
+  const locked = isLoginLocked(req);
+  if (locked.locked) {
+    res.setHeader("Retry-After", String(locked.retryAfterSeconds || 60));
+    return res.status(429).json({
+      error: "Demasiados intentos fallidos. Espera un poco antes de volver a probar.",
+    });
+  }
+
   if (!process.env.ADMIN_PASSWORD_HASH || !process.env.ADMIN_SESSION_SECRET) {
     return res.status(500).json({
       error: "Faltan ADMIN_PASSWORD_HASH o ADMIN_SESSION_SECRET en el entorno.",
@@ -47,9 +56,18 @@ module.exports = async function handler(req, res) {
 
   const password = String(body.password || "");
   if (!password || !verifyAdminPassword(password)) {
+    const attempt = registerLoginFailure(req);
+    if (attempt.lockedUntil) {
+      res.setHeader("Retry-After", String(attempt.retryAfterSeconds || 60));
+      return res.status(429).json({
+        error: "Demasiados intentos fallidos. El acceso queda bloqueado temporalmente.",
+      });
+    }
+
     return res.status(401).json({ error: "Clave invalida." });
   }
 
+  clearLoginFailures(req);
   const sessionValue = createSessionValue();
   setSessionCookie(res, sessionValue);
   return res.status(200).json({ ok: true });
