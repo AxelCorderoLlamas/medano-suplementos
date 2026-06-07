@@ -1353,6 +1353,13 @@ h3 {
   display: grid;
   grid-template-columns: minmax(0, 1.2fr) minmax(340px, 0.8fr);
   gap: 18px;
+  align-items: start;
+}
+
+.admin-grid > .admin-card:last-child {
+  position: sticky;
+  top: 18px;
+  align-self: start;
 }
 
 .admin-card {
@@ -1489,6 +1496,7 @@ h3 {
 
 .product-form textarea {
   resize: vertical;
+  min-height: 96px;
 }
 
 .product-form-grid {
@@ -1548,9 +1556,7 @@ h3 {
   display: block;
 }
 
-.admin-card textarea {
-  min-height: 560px;
-  resize: vertical;
+.product-form textarea {
   font-family: "SFMono-Regular", Consolas, "Liberation Mono", monospace;
   font-size: 0.86rem;
   line-height: 1.6;
@@ -1801,6 +1807,10 @@ h3 {
   .catalog-manager,
   .admin-grid {
     grid-template-columns: 1fr;
+  }
+
+  .admin-grid > .admin-card:last-child {
+    position: static;
   }
 
   .catalog-list,
