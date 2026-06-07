@@ -146,6 +146,7 @@ const products = [
 ];
 
 const grid = document.querySelector("#productGrid");
+const storeGrid = document.querySelector("#storeGrid");
 const offerGrid = document.querySelector("#offerGrid");
 const comboGrid = document.querySelector("#comboGrid");
 const catalogCount = document.querySelector("#catalogCount");
@@ -170,10 +171,20 @@ const dialogHow = document.querySelector("#dialogHow");
 const dialogPair = document.querySelector("#dialogPair");
 const dialogTags = document.querySelector("#dialogTags");
 const dialogWhatsapp = document.querySelector("#dialogWhatsapp");
+const cartCount = document.querySelector("#cartCount");
+const cartSummary = document.querySelector("#cartSummary");
+const cartItems = document.querySelector("#cartItems");
+const checkoutForm = document.querySelector("#checkoutForm");
+const checkoutSubmitButton = document.querySelector("#checkoutSubmitButton");
+const orderStatus = document.querySelector("#orderStatus");
+const scrollToCartButton = document.querySelector("#scrollToCartButton");
+const cartPanel = document.querySelector("#cartPanel");
 
 let activeFilter = "todos";
 let activeBrand = "all";
 let activeFlavor = "all";
+const cartStorageKey = "medano-cart-v1";
+let cart = loadCart();
 
 function escapeXml(value) {
   return String(value)
@@ -189,7 +200,141 @@ function whatsappUrlFor(product) {
   return `${whatsappBase}?text=${encodeURIComponent(text)}`;
 }
 
-function productTemplate(product) {
+function parsePriceValue(price) {
+  const digits = String(price || "").replace(/[^\d]/g, "");
+  if (!digits) return null;
+  return Number(digits);
+}
+
+function formatCurrency(value) {
+  return new Intl.NumberFormat("es-AR", {
+    style: "currency",
+    currency: "ARS",
+    maximumFractionDigits: 0,
+  }).format(value);
+}
+
+function loadCart() {
+  try {
+    const parsed = JSON.parse(localStorage.getItem(cartStorageKey) || "[]");
+    return Array.isArray(parsed) ? parsed.filter((item) => Number.isInteger(item.index) && item.qty > 0) : [];
+  } catch {
+    return [];
+  }
+}
+
+function saveCart() {
+  localStorage.setItem(cartStorageKey, JSON.stringify(cart));
+}
+
+function getCartProducts() {
+  return cart
+    .map((item) => {
+      const product = products[item.index];
+      return product ? { ...item, product } : null;
+    })
+    .filter(Boolean);
+}
+
+function getCartTotals() {
+  const items = getCartProducts();
+  const totalItems = items.reduce((sum, item) => sum + item.qty, 0);
+
+  return { items, totalItems };
+}
+
+function setOrderStatus(message, type = "") {
+  orderStatus.textContent = message;
+  orderStatus.classList.toggle("is-error", type === "error");
+  orderStatus.classList.toggle("is-success", type === "success");
+}
+
+function addToCart(index, qty = 1) {
+  const existing = cart.find((item) => item.index === index);
+  if (existing) {
+    existing.qty += qty;
+  } else {
+    cart.push({ index, qty });
+  }
+  saveCart();
+  renderCart();
+  setOrderStatus("Producto agregado al carrito.");
+}
+
+function updateCartItem(index, delta) {
+  const item = cart.find((entry) => entry.index === index);
+  if (!item) return;
+  item.qty += delta;
+  if (item.qty <= 0) {
+    cart = cart.filter((entry) => entry.index !== index);
+  }
+  saveCart();
+  renderCart();
+}
+
+function removeCartItem(index) {
+  cart = cart.filter((item) => item.index !== index);
+  saveCart();
+  renderCart();
+}
+
+function renderStore() {
+  const selected = products.slice(0, 6);
+  storeGrid.innerHTML = selected.map((product) => {
+    const index = products.indexOf(product);
+    return productTemplate(product, index);
+  }).join("");
+}
+
+function renderCart() {
+  const { items, totalItems } = getCartTotals();
+
+  cartCount.textContent = totalItems;
+  cartSummary.innerHTML = totalItems
+    ? `
+      <strong>${totalItems} producto${totalItems === 1 ? "" : "s"}</strong>
+      <span>Revisá el resumen y enviá el pedido al email configurado.</span>
+    `
+    : `
+      <strong>0 productos</strong>
+      <span>Agregá productos para empezar.</span>
+    `;
+
+  if (!items.length) {
+    cartItems.innerHTML = `<div class="cart-empty">Todavía no agregaste productos al carrito.</div>`;
+    checkoutSubmitButton.disabled = true;
+    checkoutSubmitButton.textContent = "Agregar productos";
+    return;
+  }
+
+  checkoutSubmitButton.disabled = false;
+  checkoutSubmitButton.textContent = "Enviar pedido por email";
+
+  cartItems.innerHTML = items
+    .map(({ index, qty, product }) => {
+      return `
+        <article class="cart-item">
+          <div class="cart-item-top">
+            <div>
+              <strong>${product.name}</strong>
+              <span class="cart-item-meta">${product.brand} · ${product.type}</span>
+            </div>
+            <button class="cart-item-remove" type="button" data-cart-remove="${index}">Quitar</button>
+          </div>
+          <div class="cart-item-top">
+            <div class="cart-item-controls">
+              <button class="quantity-button" type="button" data-cart-decrease="${index}" aria-label="Disminuir">-</button>
+              <span class="cart-item-qty">${qty}</span>
+              <button class="quantity-button" type="button" data-cart-increase="${index}" aria-label="Aumentar">+</button>
+            </div>
+          </div>
+        </article>
+      `;
+    })
+    .join("");
+}
+
+function productTemplate(product, index) {
   const tags = product.tags.map((tag) => `<span>${tag}</span>`).join("");
   const feature = product.feature ? `<span class="feature-label">${product.feature}</span>` : "";
 
@@ -210,15 +355,17 @@ function productTemplate(product) {
         <p>${product.description}</p>
         <div class="product-meta">${tags}</div>
         <div class="price-row">
-          <button class="secondary-button detail-button" type="button" data-product="${products.indexOf(product)}">Ver detalle</button>
-          <a class="primary-button" href="${whatsappUrlFor(product)}" target="_blank" rel="noreferrer">Consultar</a>
+          <div class="card-actions">
+            <button class="primary-button" type="button" data-add-to-cart="${index}">Agregar</button>
+            <button class="secondary-button detail-button" type="button" data-product="${index}">Detalle</button>
+          </div>
         </div>
       </div>
     </article>
   `;
 }
 
-function offerTemplate(product) {
+function offerTemplate(product, index) {
   return `
     <article class="offer-card">
       <div class="offer-image">
@@ -236,14 +383,17 @@ function offerTemplate(product) {
         <p>${product.description}</p>
         <div class="product-meta">${product.tags.map((tag) => `<span>${tag}</span>`).join("")}</div>
         <div class="price-row">
-          <a class="primary-button" href="${whatsappUrlFor(product)}" target="_blank" rel="noreferrer">Pedir</a>
+          <div class="card-actions">
+            <button class="primary-button" type="button" data-add-to-cart="${index}">Agregar</button>
+            <a class="secondary-button" href="${whatsappUrlFor(product)}" target="_blank" rel="noreferrer">Pedir</a>
+          </div>
         </div>
       </div>
     </article>
   `;
 }
 
-function comboTemplate(product) {
+function comboTemplate(product, index) {
   return `
     <article class="combo-card">
       <span class="feature-label">${product.feature || "Combo"}</span>
@@ -251,7 +401,10 @@ function comboTemplate(product) {
       <p>${product.description}</p>
       <div class="product-meta">${product.tags.map((tag) => `<span>${tag}</span>`).join("")}</div>
       <div class="price-row">
-        <a class="primary-button" href="${whatsappUrlFor(product)}" target="_blank" rel="noreferrer">Reservar</a>
+        <div class="card-actions">
+          <button class="primary-button" type="button" data-add-to-cart="${index}">Agregar</button>
+          <a class="secondary-button" href="${whatsappUrlFor(product)}" target="_blank" rel="noreferrer">Reservar</a>
+        </div>
       </div>
     </article>
   `;
@@ -287,23 +440,31 @@ function getFilteredProducts() {
 
 function renderProducts() {
   const filtered = getFilteredProducts();
+  const renderable = filtered.map((product) => ({
+    product,
+    index: products.indexOf(product),
+  }));
 
   catalogCount.textContent = `${filtered.length} productos visibles de ${products.length} cargados`;
-  grid.innerHTML = filtered.length
-    ? filtered.map(productTemplate).join("")
+  grid.innerHTML = renderable.length
+    ? renderable.map(({ product, index }) => productTemplate(product, index)).join("")
     : `<p class="muted">No hay productos para ese filtro.</p>`;
 }
 
 function renderOffers() {
-  const offers = products.filter((product) => product.feature === "Oferta" || product.feature === "Stock visto");
+  const offers = products
+    .map((product, index) => ({ product, index }))
+    .filter(({ product }) => product.feature === "Oferta" || product.feature === "Stock visto");
   offerGrid.innerHTML = offers.length
-    ? offers.map(offerTemplate).join("")
+    ? offers.map(({ product, index }) => offerTemplate(product, index)).join("")
     : `<p class="muted">No hay ofertas cargadas por ahora.</p>`;
 }
 
 function renderCombos() {
-  const combos = products.filter((product) => product.category === "combos");
-  comboGrid.innerHTML = combos.map(comboTemplate).join("");
+  const combos = products
+    .map((product, index) => ({ product, index }))
+    .filter(({ product }) => product.category === "combos");
+  comboGrid.innerHTML = combos.map(({ product, index }) => comboTemplate(product, index)).join("");
 }
 
 function setActiveFilter(filter) {
@@ -377,7 +538,7 @@ advisorForm.addEventListener("submit", (event) => {
   const consultUrl = whatsappUrlFor(matches[0]);
 
   const levelText = {
-    inicio: "Arrancaria simple y revisaria tolerancia antes de sumar mas productos.",
+    inicio: "Arrancaríamos simple y revisaríamos tolerancia antes de sumar más productos.",
     medio: "Podes comparar formatos, sabores y frecuencia segun tu rutina.",
     avanzado: "Conviene validar dosis, timing y compatibilidad con tu planificacion.",
   };
@@ -390,6 +551,94 @@ advisorForm.addEventListener("submit", (event) => {
 });
 
 populateFilters();
+renderStore();
 renderProducts();
 renderOffers();
 renderCombos();
+renderCart();
+
+scrollToCartButton.addEventListener("click", () => {
+  cartPanel.scrollIntoView({ behavior: "smooth", block: "start" });
+});
+
+document.addEventListener("click", (event) => {
+  const addButton = event.target.closest("[data-add-to-cart]");
+  if (addButton) {
+    addToCart(Number(addButton.dataset.addToCart));
+    return;
+  }
+
+  const removeButton = event.target.closest("[data-cart-remove]");
+  if (removeButton) {
+    removeCartItem(Number(removeButton.dataset.cartRemove));
+    return;
+  }
+
+  const increaseButton = event.target.closest("[data-cart-increase]");
+  if (increaseButton) {
+    updateCartItem(Number(increaseButton.dataset.cartIncrease), 1);
+    return;
+  }
+
+  const decreaseButton = event.target.closest("[data-cart-decrease]");
+  if (decreaseButton) {
+    updateCartItem(Number(decreaseButton.dataset.cartDecrease), -1);
+  }
+});
+
+checkoutForm.addEventListener("submit", async (event) => {
+  event.preventDefault();
+
+  const { items, totalItems } = getCartTotals();
+  if (!items.length) {
+    setOrderStatus("Agregá productos al carrito antes de enviar el pedido.", "error");
+    return;
+  }
+
+  const formData = new FormData(checkoutForm);
+  const customer = {
+    name: String(formData.get("name") || "").trim(),
+    email: String(formData.get("email") || "").trim(),
+    phone: String(formData.get("phone") || "").trim(),
+    delivery: String(formData.get("delivery") || "").trim(),
+    notes: String(formData.get("notes") || "").trim(),
+  };
+
+  checkoutSubmitButton.disabled = true;
+  setOrderStatus("Enviando pedido...");
+
+  try {
+    const response = await fetch("/api/order", {
+      method: "POST",
+      headers: {
+        "Content-Type": "application/json",
+      },
+      body: JSON.stringify({
+        customer,
+        items: items.map(({ qty, product }) => ({
+          name: product.name,
+          brand: product.brand,
+          type: product.type,
+          quantity: qty,
+        })),
+        summary: { totalItems },
+      }),
+    });
+
+    const payload = await response.json().catch(() => ({}));
+
+    if (!response.ok) {
+      throw new Error(payload.error || "No se pudo enviar el pedido.");
+    }
+
+    cart = [];
+    saveCart();
+    renderCart();
+    checkoutForm.reset();
+    setOrderStatus("Pedido enviado. Ya quedó en el email configurado.", "success");
+  } catch (error) {
+    setOrderStatus(error.message || "No se pudo enviar el pedido.", "error");
+  } finally {
+    checkoutSubmitButton.disabled = cart.length === 0;
+  }
+});
