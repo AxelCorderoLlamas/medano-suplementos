@@ -1,4 +1,8 @@
+const crypto = require("crypto");
+const { appendStoreItem } = require("../lib/repo-store");
+
 const RESEND_ENDPOINT = "https://api.resend.com/emails";
+const ORDER_STORE_PATH = "data/orders.json";
 
 function escapeHtml(value) {
   return String(value)
@@ -127,6 +131,8 @@ module.exports = async function handler(req, res) {
   }
 
   const order = {
+    id: crypto.randomUUID(),
+    createdAt: new Date().toISOString(),
     customer: {
       name: String(customer.name).trim(),
       email: String(customer.email).trim(),
@@ -135,6 +141,7 @@ module.exports = async function handler(req, res) {
       notes: String(customer.notes || "").trim(),
     },
     items: items.map((item) => ({
+      id: String(item.id || ""),
       name: String(item.name || ""),
       brand: String(item.brand || ""),
       type: String(item.type || ""),
@@ -169,5 +176,24 @@ module.exports = async function handler(req, res) {
     });
   }
 
-  return res.status(200).json({ ok: true, id: payload.id });
+  let storeWarning = "";
+  try {
+    await appendStoreItem(
+      ORDER_STORE_PATH,
+      {
+        id: order.id,
+        createdAt: order.createdAt,
+        customer: order.customer,
+        items: order.items,
+        summary: order.summary,
+        emailId: payload.id || "",
+      },
+      [],
+      "Record Medano order",
+    );
+  } catch (error) {
+    storeWarning = error.message || "No se pudo guardar el pedido en el panel.";
+  }
+
+  return res.status(200).json({ ok: true, id: payload.id, orderId: order.id, warning: storeWarning || undefined });
 };

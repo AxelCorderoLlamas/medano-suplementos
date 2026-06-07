@@ -2,8 +2,9 @@ const instagramUrl = "https://www.instagram.com/medanosuplementos/";
 const whatsappBase = "https://wa.me/5492291414853";
 const genericWhatsappText = "Hola Medano, quiero consultar por suplementos";
 
-const products = [
+const defaultProducts = [
   {
+    id: "nutrilab-whey-pro",
     name: "Nutrilab Whey Pro",
     brand: "Nutrilab",
     category: "masa",
@@ -21,6 +22,7 @@ const products = [
     image: "https://acdn-us.mitiendanube.com/stores/001/354/710/products/whey-pro-1kg-nutrilab-6d8919ec15cd33483017339392907947-480-0.webp",
   },
   {
+    id: "nutrilab-crea-shock-cafeina",
     name: "Nutrilab Crea Shock Cafeina",
     brand: "Nutrilab",
     category: "energia",
@@ -39,6 +41,7 @@ const products = [
     image: "https://acdn-us.mitiendanube.com/stores/001/354/710/products/crea-shok-300g-nutrilab-b2844f81f8ac1ef75b17339387539796-480-0.webp",
   },
   {
+    id: "creatina-monohidratada-300g",
     name: "Creatina Monohidratada 300g",
     brand: "Star Nutrition",
     category: "fuerza",
@@ -57,6 +60,7 @@ const products = [
     image: "https://acdn-us.mitiendanube.com/stores/001/354/710/products/creatina-300g-doy-pack-star-nutrition-c009a6a92968d1398717195988049794-480-0.webp",
   },
   {
+    id: "whey-protein-1kg",
     name: "Whey Protein 1kg",
     brand: "HardCore",
     category: "masa",
@@ -75,6 +79,7 @@ const products = [
     image: "https://acdn-us.mitiendanube.com/stores/001/354/710/products/frente1-151c87ba61e0c3d3fc16009772401321-480-0.webp",
   },
   {
+    id: "combo-whey-pro-crea-shock",
     name: "Combo Whey Pro + Crea Shock",
     brand: "Nutrilab",
     category: "combos",
@@ -93,6 +98,7 @@ const products = [
     image: "https://acdn-us.mitiendanube.com/stores/001/354/710/products/promo-whey-pro-creashock-nutrilab-b2673bda9b3ce9a30817376581984017-480-0.webp",
   },
   {
+    id: "vitamina-c-150g",
     name: "Vitamina C 150g",
     brand: "One Fit",
     category: "bienestar",
@@ -110,6 +116,7 @@ const products = [
     image: "https://acdn-us.mitiendanube.com/stores/001/354/710/products/vitamina-c-150g-d692d5d9285d3e703717267805314775-480-0.webp",
   },
   {
+    id: "aminoacidos-gentech",
     name: "Aminoacidos",
     brand: "Gentech",
     category: "masa",
@@ -127,6 +134,7 @@ const products = [
     image: "https://images.unsplash.com/photo-1582719478250-c89cae4dc85b?auto=format&fit=crop&w=900&q=85",
   },
   {
+    id: "quemador-termogenico",
     name: "Quemador / Termogenico",
     brand: "Ena",
     category: "energia",
@@ -144,6 +152,8 @@ const products = [
     image: "https://images.unsplash.com/photo-1596457224318-4c9eaf5f4f2f?auto=format&fit=crop&w=900&q=85",
   },
 ];
+
+let products = [...defaultProducts];
 
 const grid = document.querySelector("#productGrid");
 const storeGrid = document.querySelector("#storeGrid");
@@ -184,7 +194,7 @@ let activeFilter = "todos";
 let activeBrand = "all";
 let activeFlavor = "all";
 const cartStorageKey = "medano-cart-v1";
-let cart = loadCart();
+let cart = loadCart(defaultProducts);
 
 function escapeXml(value) {
   return String(value)
@@ -214,10 +224,62 @@ function formatCurrency(value) {
   }).format(value);
 }
 
-function loadCart() {
+async function loadCatalog() {
+  try {
+    const response = await fetch("/api/catalog", { cache: "no-store" });
+    if (!response.ok) {
+      throw new Error("Catalog unavailable");
+    }
+
+    const payload = await response.json();
+    if (!Array.isArray(payload)) {
+      return defaultProducts;
+    }
+
+    return payload.map((product, index) => ({
+      id: String(product.id || defaultProducts[index]?.id || `product-${index + 1}`),
+      name: String(product.name || ""),
+      brand: String(product.brand || ""),
+      category: String(product.category || ""),
+      type: String(product.type || ""),
+      goal: String(product.goal || ""),
+      flavor: String(product.flavor || ""),
+      flavors: Array.isArray(product.flavors) ? product.flavors : String(product.flavors || "").split(",").map((item) => item.trim()).filter(Boolean),
+      description: String(product.description || ""),
+      does: String(product.does || ""),
+      how: String(product.how || ""),
+      pair: String(product.pair || ""),
+      tags: Array.isArray(product.tags) ? product.tags : String(product.tags || "").split(",").map((item) => item.trim()).filter(Boolean),
+      price: String(product.price || ""),
+      oldPrice: String(product.oldPrice || ""),
+      feature: String(product.feature || ""),
+      image: String(product.image || ""),
+    }));
+  } catch {
+    return defaultProducts;
+  }
+}
+
+function loadCart(catalog = defaultProducts) {
   try {
     const parsed = JSON.parse(localStorage.getItem(cartStorageKey) || "[]");
-    return Array.isArray(parsed) ? parsed.filter((item) => Number.isInteger(item.index) && item.qty > 0) : [];
+    if (!Array.isArray(parsed)) {
+      return [];
+    }
+
+    return parsed
+      .map((item) => {
+        if (typeof item?.id === "string" && item.id.trim()) {
+          return { id: item.id.trim(), qty: Number(item.qty || 0) };
+        }
+
+        if (Number.isInteger(item?.index) && catalog[item.index]) {
+          return { id: catalog[item.index].id, qty: Number(item.qty || 0) };
+        }
+
+        return null;
+      })
+      .filter((item) => item && item.id && item.qty > 0);
   } catch {
     return [];
   }
@@ -230,7 +292,7 @@ function saveCart() {
 function getCartProducts() {
   return cart
     .map((item) => {
-      const product = products[item.index];
+      const product = products.find((entry) => entry.id === item.id);
       return product ? { ...item, product } : null;
     })
     .filter(Boolean);
@@ -249,31 +311,31 @@ function setOrderStatus(message, type = "") {
   orderStatus.classList.toggle("is-success", type === "success");
 }
 
-function addToCart(index, qty = 1) {
-  const existing = cart.find((item) => item.index === index);
+function addToCart(id, qty = 1) {
+  const existing = cart.find((item) => item.id === id);
   if (existing) {
     existing.qty += qty;
   } else {
-    cart.push({ index, qty });
+    cart.push({ id, qty });
   }
   saveCart();
   renderCart();
   setOrderStatus("Producto agregado al carrito.");
 }
 
-function updateCartItem(index, delta) {
-  const item = cart.find((entry) => entry.index === index);
+function updateCartItem(id, delta) {
+  const item = cart.find((entry) => entry.id === id);
   if (!item) return;
   item.qty += delta;
   if (item.qty <= 0) {
-    cart = cart.filter((entry) => entry.index !== index);
+    cart = cart.filter((entry) => entry.id !== id);
   }
   saveCart();
   renderCart();
 }
 
-function removeCartItem(index) {
-  cart = cart.filter((item) => item.index !== index);
+function removeCartItem(id) {
+  cart = cart.filter((item) => item.id !== id);
   saveCart();
   renderCart();
 }
@@ -281,8 +343,7 @@ function removeCartItem(index) {
 function renderStore() {
   const selected = products.slice(0, 6);
   storeGrid.innerHTML = selected.map((product) => {
-    const index = products.indexOf(product);
-    return productTemplate(product, index);
+    return productTemplate(product);
   }).join("");
 }
 
@@ -311,7 +372,7 @@ function renderCart() {
   checkoutSubmitButton.textContent = "Enviar pedido por email";
 
   cartItems.innerHTML = items
-    .map(({ index, qty, product }) => {
+    .map(({ id, qty, product }) => {
       return `
         <article class="cart-item">
           <div class="cart-item-top">
@@ -319,13 +380,13 @@ function renderCart() {
               <strong>${product.name}</strong>
               <span class="cart-item-meta">${product.brand} · ${product.type}</span>
             </div>
-            <button class="cart-item-remove" type="button" data-cart-remove="${index}">Quitar</button>
+            <button class="cart-item-remove" type="button" data-cart-remove="${id}">Quitar</button>
           </div>
           <div class="cart-item-top">
             <div class="cart-item-controls">
-              <button class="quantity-button" type="button" data-cart-decrease="${index}" aria-label="Disminuir">-</button>
+              <button class="quantity-button" type="button" data-cart-decrease="${id}" aria-label="Disminuir">-</button>
               <span class="cart-item-qty">${qty}</span>
-              <button class="quantity-button" type="button" data-cart-increase="${index}" aria-label="Aumentar">+</button>
+              <button class="quantity-button" type="button" data-cart-increase="${id}" aria-label="Aumentar">+</button>
             </div>
           </div>
         </article>
@@ -334,7 +395,7 @@ function renderCart() {
     .join("");
 }
 
-function productTemplate(product, index) {
+function productTemplate(product) {
   const tags = product.tags.map((tag) => `<span>${tag}</span>`).join("");
   const feature = product.feature ? `<span class="feature-label">${product.feature}</span>` : "";
 
@@ -356,8 +417,8 @@ function productTemplate(product, index) {
         <div class="product-meta">${tags}</div>
         <div class="price-row">
           <div class="card-actions">
-            <button class="primary-button" type="button" data-add-to-cart="${index}">Agregar</button>
-            <button class="secondary-button detail-button" type="button" data-product="${index}">Detalle</button>
+            <button class="primary-button" type="button" data-add-to-cart="${product.id}">Agregar</button>
+            <button class="secondary-button detail-button" type="button" data-product="${product.id}">Detalle</button>
           </div>
         </div>
       </div>
@@ -365,7 +426,7 @@ function productTemplate(product, index) {
   `;
 }
 
-function offerTemplate(product, index) {
+function offerTemplate(product) {
   return `
     <article class="offer-card">
       <div class="offer-image">
@@ -384,7 +445,7 @@ function offerTemplate(product, index) {
         <div class="product-meta">${product.tags.map((tag) => `<span>${tag}</span>`).join("")}</div>
         <div class="price-row">
           <div class="card-actions">
-            <button class="primary-button" type="button" data-add-to-cart="${index}">Agregar</button>
+            <button class="primary-button" type="button" data-add-to-cart="${product.id}">Agregar</button>
             <a class="secondary-button" href="${whatsappUrlFor(product)}" target="_blank" rel="noreferrer">Pedir</a>
           </div>
         </div>
@@ -393,7 +454,7 @@ function offerTemplate(product, index) {
   `;
 }
 
-function comboTemplate(product, index) {
+function comboTemplate(product) {
   return `
     <article class="combo-card">
       <span class="feature-label">${product.feature || "Combo"}</span>
@@ -402,7 +463,7 @@ function comboTemplate(product, index) {
       <div class="product-meta">${product.tags.map((tag) => `<span>${tag}</span>`).join("")}</div>
       <div class="price-row">
         <div class="card-actions">
-          <button class="primary-button" type="button" data-add-to-cart="${index}">Agregar</button>
+          <button class="primary-button" type="button" data-add-to-cart="${product.id}">Agregar</button>
           <a class="secondary-button" href="${whatsappUrlFor(product)}" target="_blank" rel="noreferrer">Reservar</a>
         </div>
       </div>
@@ -440,31 +501,23 @@ function getFilteredProducts() {
 
 function renderProducts() {
   const filtered = getFilteredProducts();
-  const renderable = filtered.map((product) => ({
-    product,
-    index: products.indexOf(product),
-  }));
 
   catalogCount.textContent = `${filtered.length} productos visibles de ${products.length} cargados`;
-  grid.innerHTML = renderable.length
-    ? renderable.map(({ product, index }) => productTemplate(product, index)).join("")
+  grid.innerHTML = filtered.length
+    ? filtered.map((product) => productTemplate(product)).join("")
     : `<p class="muted">No hay productos para ese filtro.</p>`;
 }
 
 function renderOffers() {
-  const offers = products
-    .map((product, index) => ({ product, index }))
-    .filter(({ product }) => product.feature === "Oferta" || product.feature === "Stock visto");
+  const offers = products.filter((product) => product.feature === "Oferta" || product.feature === "Stock visto");
   offerGrid.innerHTML = offers.length
-    ? offers.map(({ product, index }) => offerTemplate(product, index)).join("")
+    ? offers.map((product) => offerTemplate(product)).join("")
     : `<p class="muted">No hay ofertas cargadas por ahora.</p>`;
 }
 
 function renderCombos() {
-  const combos = products
-    .map((product, index) => ({ product, index }))
-    .filter(({ product }) => product.category === "combos");
-  comboGrid.innerHTML = combos.map(({ product, index }) => comboTemplate(product, index)).join("");
+  const combos = products.filter((product) => product.category === "combos");
+  comboGrid.innerHTML = combos.map((product) => comboTemplate(product)).join("");
 }
 
 function setActiveFilter(filter) {
@@ -483,7 +536,10 @@ function populateFilters() {
   buildSelectOptions(flavorFilter, flavors, "Todos los sabores");
 }
 
-function openProductDetail(product) {
+function openProductDetail(productId) {
+  const product = products.find((entry) => entry.id === productId);
+  if (!product) return;
+
   dialogImage.src = product.image;
   dialogImage.alt = product.name;
   dialogFeature.textContent = product.feature || product.goal;
@@ -504,8 +560,7 @@ document.addEventListener("click", (event) => {
   const button = event.target.closest("[data-product]");
   if (!button) return;
 
-  const product = products[Number(button.dataset.product)];
-  if (product) openProductDetail(product);
+  openProductDetail(button.dataset.product);
 });
 
 filterButtons.forEach((button) => {
@@ -550,13 +605,6 @@ advisorForm.addEventListener("submit", (event) => {
   `;
 });
 
-populateFilters();
-renderStore();
-renderProducts();
-renderOffers();
-renderCombos();
-renderCart();
-
 scrollToCartButton.addEventListener("click", () => {
   cartPanel.scrollIntoView({ behavior: "smooth", block: "start" });
 });
@@ -564,25 +612,25 @@ scrollToCartButton.addEventListener("click", () => {
 document.addEventListener("click", (event) => {
   const addButton = event.target.closest("[data-add-to-cart]");
   if (addButton) {
-    addToCart(Number(addButton.dataset.addToCart));
+    addToCart(addButton.dataset.addToCart);
     return;
   }
 
   const removeButton = event.target.closest("[data-cart-remove]");
   if (removeButton) {
-    removeCartItem(Number(removeButton.dataset.cartRemove));
+    removeCartItem(removeButton.dataset.cartRemove);
     return;
   }
 
   const increaseButton = event.target.closest("[data-cart-increase]");
   if (increaseButton) {
-    updateCartItem(Number(increaseButton.dataset.cartIncrease), 1);
+    updateCartItem(increaseButton.dataset.cartIncrease, 1);
     return;
   }
 
   const decreaseButton = event.target.closest("[data-cart-decrease]");
   if (decreaseButton) {
-    updateCartItem(Number(decreaseButton.dataset.cartDecrease), -1);
+    updateCartItem(decreaseButton.dataset.cartDecrease, -1);
   }
 });
 
@@ -615,7 +663,8 @@ checkoutForm.addEventListener("submit", async (event) => {
       },
       body: JSON.stringify({
         customer,
-        items: items.map(({ qty, product }) => ({
+        items: items.map(({ id, qty, product }) => ({
+          id,
           name: product.name,
           brand: product.brand,
           type: product.type,
@@ -642,3 +691,14 @@ checkoutForm.addEventListener("submit", async (event) => {
     checkoutSubmitButton.disabled = cart.length === 0;
   }
 });
+
+(async function initApp() {
+  products = await loadCatalog();
+  cart = loadCart(products);
+  populateFilters();
+  renderStore();
+  renderProducts();
+  renderOffers();
+  renderCombos();
+  renderCart();
+})();

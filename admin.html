@@ -1,0 +1,72 @@
+<!doctype html>
+<html lang="es">
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <title>Medano Admin</title>
+    <meta name="robots" content="noindex, nofollow" />
+    <link rel="preconnect" href="https://fonts.googleapis.com" />
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800;900&family=Rajdhani:wght@500;600;700;800&display=swap" rel="stylesheet" />
+    <link rel="stylesheet" href="./styles.css" />
+  </head>
+  <body class="admin-page">
+    <header class="admin-topbar">
+      <div class="auth-brand">
+        <img src="./assets/logo-medano.svg" alt="" />
+        <div>
+          <span>Medano</span>
+          <strong>Admin</strong>
+        </div>
+      </div>
+      <div class="admin-actions">
+        <a class="secondary-button" href="/">Ver sitio</a>
+        <button class="secondary-button" type="button" id="logoutButton">Salir</button>
+      </div>
+    </header>
+
+    <main class="admin-shell">
+      <section class="admin-hero">
+        <div>
+          <p class="eyebrow">Panel privado</p>
+          <h1>Catalogo y pedidos</h1>
+          <p class="muted">Edita el JSON del catalogo y revisa los pedidos guardados por la tienda.</p>
+        </div>
+        <div class="admin-stats" id="adminStats"></div>
+      </section>
+
+      <section class="admin-grid">
+        <article class="admin-card">
+          <div class="section-heading">
+            <div>
+              <p class="eyebrow">Catalogo</p>
+              <h2>Editor JSON</h2>
+              <p class="muted">Guardado directo sobre <code>data/catalog.json</code>.</p>
+            </div>
+            <div class="admin-card-actions">
+              <button class="secondary-button" type="button" id="reloadCatalogButton">Recargar</button>
+              <button class="primary-button" type="button" id="saveCatalogButton">Guardar cambios</button>
+            </div>
+          </div>
+          <textarea id="catalogEditor" spellcheck="false"></textarea>
+          <p class="admin-status" id="catalogStatus" aria-live="polite"></p>
+        </article>
+
+        <article class="admin-card">
+          <div class="section-heading">
+            <div>
+              <p class="eyebrow">Pedidos</p>
+              <h2>Ultimos pedidos</h2>
+              <p class="muted">Pedidos recibidos desde el checkout y guardados en el store.</p>
+            </div>
+            <button class="secondary-button" type="button" id="refreshOrdersButton">Actualizar</button>
+          </div>
+          <div class="orders-list" id="ordersList"></div>
+          <p class="admin-status" id="ordersStatus" aria-live="polite"></p>
+        </article>
+      </section>
+    </main>
+
+    <script src="./admin.js"></script>
+  </body>
+</html>
