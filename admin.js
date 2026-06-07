@@ -32,6 +32,9 @@ const productDoesInput = document.querySelector("#productDoes");
 const productHowInput = document.querySelector("#productHow");
 const productPairInput = document.querySelector("#productPair");
 const productImageInput = document.querySelector("#productImage");
+const productImageFileInput = document.querySelector("#productImageFile");
+const uploadImageButton = document.querySelector("#uploadImageButton");
+const productImagePreview = document.querySelector("#productImagePreview");
 
 let catalogCache = [];
 let ordersCache = [];
@@ -52,6 +55,15 @@ function splitList(value) {
     .split(",")
     .map((entry) => entry.trim())
     .filter(Boolean);
+}
+
+function readFileAsDataUrl(file) {
+  return new Promise((resolve, reject) => {
+    const reader = new FileReader();
+    reader.onload = () => resolve(String(reader.result || ""));
+    reader.onerror = () => reject(new Error("No se pudo leer el archivo."));
+    reader.readAsDataURL(file);
+  });
 }
 
 function setStatus(element, message, type = "") {
@@ -214,7 +226,21 @@ function setFormProduct(product) {
   productImageInput.value = product?.image || "";
   productFormTitle.textContent = product?.id ? "Editar producto" : "Nuevo producto";
   setStatus(productStatus, product?.id ? "Editando producto seleccionado." : "Crea un producto nuevo y luego guardalo.", "success");
+  updateImagePreview(product?.image || "");
   renderCatalogList();
+}
+
+function updateImagePreview(url) {
+  const value = String(url || "").trim();
+  if (value) {
+    productImagePreview.src = value;
+    productImagePreview.alt = productNameInput.value || "Vista previa del producto";
+    productImagePreview.parentElement.classList.add("has-image");
+  } else {
+    productImagePreview.removeAttribute("src");
+    productImagePreview.alt = "";
+    productImagePreview.parentElement.classList.remove("has-image");
+  }
 }
 
 function readFormProduct() {
@@ -253,6 +279,7 @@ function updateProductFromForm() {
   selectedProductId = draft.id;
   renderStats();
   renderCatalogList();
+  updateImagePreview(draft.image);
 }
 
 async function fetchJson(url, options = {}) {
@@ -400,6 +427,51 @@ catalogList.addEventListener("click", (event) => {
 });
 
 catalogSearchInput.addEventListener("input", applyCatalogSearch);
+
+productImageInput.addEventListener("input", () => {
+  updateImagePreview(productImageInput.value);
+});
+
+productNameInput.addEventListener("input", () => {
+  if (productImagePreview.src) {
+    productImagePreview.alt = productNameInput.value || "Vista previa del producto";
+  }
+});
+
+uploadImageButton.addEventListener("click", async () => {
+  const file = productImageFileInput.files && productImageFileInput.files[0];
+  if (!file) {
+    setStatus(productStatus, "Elegí una imagen antes de subirla.", "error");
+    return;
+  }
+
+  uploadImageButton.disabled = true;
+  setStatus(productStatus, "Subiendo imagen...");
+
+  try {
+    const dataUrl = await readFileAsDataUrl(file);
+    const payload = dataUrl.split(",");
+    const response = await fetchJson("/api/upload-image", {
+      method: "POST",
+      headers: {
+        "Content-Type": "application/json",
+      },
+      body: JSON.stringify({
+        filename: file.name,
+        mimeType: file.type,
+        data: payload[1] || "",
+      }),
+    });
+
+    productImageInput.value = response.url;
+    updateImagePreview(response.url);
+    setStatus(productStatus, "Imagen subida y lista para guardar.", "success");
+  } catch (error) {
+    setStatus(productStatus, error.message || "No se pudo subir la imagen.", "error");
+  } finally {
+    uploadImageButton.disabled = false;
+  }
+});
 
 (async function boot() {
   const authenticated = await checkSession().catch(() => false);

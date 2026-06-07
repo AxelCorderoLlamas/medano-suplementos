@@ -30,7 +30,7 @@
         <div>
           <p class="eyebrow">Panel privado</p>
           <h1>Catalogo y pedidos</h1>
-          <p class="muted">Edita el JSON del catalogo y revisa los pedidos guardados por la tienda.</p>
+          <p class="muted">Edita productos con campos simples, sube imagenes y revisa los pedidos guardados por la tienda.</p>
         </div>
         <div class="admin-stats" id="adminStats"></div>
       </section>
@@ -149,6 +149,20 @@
                 Imagen
                 <input type="url" id="productImage" placeholder="URL de imagen" />
               </label>
+              <div class="image-upload">
+                <div>
+                  <label>
+                    O subir archivo
+                    <input type="file" id="productImageFile" accept="image/*" />
+                  </label>
+                  <p class="muted image-upload-hint">La imagen se sube al repo y queda guardada como URL.</p>
+                </div>
+                <button class="secondary-button" type="button" id="uploadImageButton">Subir imagen</button>
+              </div>
+              <div class="image-preview" id="imagePreview">
+                <span>Previsualizacion</span>
+                <img id="productImagePreview" alt="" />
+              </div>
               <p class="admin-status" id="productStatus" aria-live="polite"></p>
             </form>
           </div>

@@ -60,3 +60,7 @@ Para persistencia del catalogo y pedidos en GitHub:
 - `GITHUB_BRANCH` (opcional, por defecto `main`)
 
 El `GITHUB_TOKEN` necesita permisos de lectura y escritura sobre el repositorio.
+
+## Imagenes del catalogo
+
+Desde el admin se pueden subir imagenes directamente. El archivo se guarda en el repositorio dentro de `assets/uploads/` y el sistema usa la URL final automaticamente.
