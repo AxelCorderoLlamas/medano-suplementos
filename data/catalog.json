@@ -22,9 +22,10 @@
       "Mas consultado"
     ],
     "price": "$25.990",
+    "oldPrice": "",
+    "showPrice": false,
     "feature": "Mas consultado",
-    "image": "https://acdn-us.mitiendanube.com/stores/001/354/710/products/whey-pro-1kg-nutrilab-6d8919ec15cd33483017339392907947-480-0.webp",
-    "showPrice": false
+    "image": "https://acdn-us.mitiendanube.com/stores/001/354/710/products/whey-pro-1kg-nutrilab-6d8919ec15cd33483017339392907947-480-0.webp"
   },
   {
     "id": "nutrilab-crea-shock-cafeina",
@@ -49,9 +50,9 @@
     ],
     "price": "$21.060",
     "oldPrice": "$23.380",
+    "showPrice": false,
     "feature": "Stock visto",
-    "image": "https://acdn-us.mitiendanube.com/stores/001/354/710/products/crea-shok-300g-nutrilab-b2844f81f8ac1ef75b17339387539796-480-0.webp",
-    "showPrice": false
+    "image": "https://acdn-us.mitiendanube.com/stores/001/354/710/products/crea-shok-300g-nutrilab-b2844f81f8ac1ef75b17339387539796-480-0.webp"
   },
   {
     "id": "creatina-monohidratada-300g",
@@ -75,9 +76,9 @@
     ],
     "price": "$31.600",
     "oldPrice": "$34.820",
+    "showPrice": false,
     "feature": "Oferta",
-    "image": "https://acdn-us.mitiendanube.com/stores/001/354/710/products/creatina-300g-doy-pack-star-nutrition-c009a6a92968d1398717195988049794-480-0.webp",
-    "showPrice": false
+    "image": "https://acdn-us.mitiendanube.com/stores/001/354/710/products/creatina-300g-doy-pack-star-nutrition-c009a6a92968d1398717195988049794-480-0.webp"
   },
   {
     "id": "whey-protein-1kg",
@@ -103,9 +104,9 @@
     ],
     "price": "$14.890",
     "oldPrice": "$16.900",
+    "showPrice": false,
     "feature": "Oferta",
-    "image": "https://acdn-us.mitiendanube.com/stores/001/354/710/products/frente1-151c87ba61e0c3d3fc16009772401321-480-0.webp",
-    "showPrice": false
+    "image": "https://acdn-us.mitiendanube.com/stores/001/354/710/products/frente1-151c87ba61e0c3d3fc16009772401321-480-0.webp"
   },
   {
     "id": "combo-whey-pro-crea-shock",
@@ -129,9 +130,9 @@
     ],
     "price": "$34.850",
     "oldPrice": "$42.726",
+    "showPrice": false,
     "feature": "Historia IG",
-    "image": "https://acdn-us.mitiendanube.com/stores/001/354/710/products/promo-whey-pro-creashock-nutrilab-b2673bda9b3ce9a30817376581984017-480-0.webp",
-    "showPrice": false
+    "image": "https://acdn-us.mitiendanube.com/stores/001/354/710/products/promo-whey-pro-creashock-nutrilab-b2673bda9b3ce9a30817376581984017-480-0.webp"
   },
   {
     "id": "vitamina-c-150g",
@@ -154,9 +155,10 @@
       "Antioxidante"
     ],
     "price": "$10.900",
+    "oldPrice": "",
+    "showPrice": false,
     "feature": "Salud diaria",
-    "image": "https://acdn-us.mitiendanube.com/stores/001/354/710/products/vitamina-c-150g-d692d5d9285d3e703717267805314775-480-0.webp",
-    "showPrice": false
+    "image": "https://acdn-us.mitiendanube.com/stores/001/354/710/products/vitamina-c-150g-d692d5d9285d3e703717267805314775-480-0.webp"
   },
   {
     "id": "aminoacidos-gentech",
@@ -180,9 +182,10 @@
       "Rutina"
     ],
     "price": "Consultar",
+    "oldPrice": "",
+    "showPrice": false,
     "feature": "Recuperacion",
-    "image": "https://images.unsplash.com/photo-1582719478250-c89cae4dc85b?auto=format&fit=crop&w=900&q=85",
-    "showPrice": false
+    "image": "https://raw.githubusercontent.com/AxelCorderoLlamas/medano-suplementos/main/assets/uploads/20260607220836-e996b4ea-gentech-aminoacidos.png.png"
   },
   {
     "id": "quemador-termogenico",
@@ -205,8 +208,9 @@
       "Definicion"
     ],
     "price": "Consultar",
+    "oldPrice": "",
+    "showPrice": false,
     "feature": "Definicion",
-    "image": "https://images.unsplash.com/photo-1596457224318-4c9eaf5f4f2f?auto=format&fit=crop&w=900&q=85",
-    "showPrice": false
+    "image": "https://images.unsplash.com/photo-1596457224318-4c9eaf5f4f2f?auto=format&fit=crop&w=900&q=85"
   }
 ]
