@@ -104,6 +104,13 @@ module.exports = async function handler(req, res) {
   const payload = await response.json().catch(() => ({}));
 
   if (!response.ok) {
+    if (response.status === 401 || response.status === 403) {
+      return res.status(403).json({
+        error:
+          "GitHub rechazo el token. Revisa que GITHUB_TOKEN tenga acceso al repo y permiso Contents: Read and write. Si usas un fine-grained PAT, autoriza el repositorio y, si aplica, el SSO de la cuenta.",
+      });
+    }
+
     return res.status(response.status).json({
       error: payload.message || "No se pudo subir la imagen.",
     });
