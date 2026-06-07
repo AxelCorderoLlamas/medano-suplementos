@@ -1,5 +1,6 @@
 const crypto = require("crypto");
 const { appendStoreItem } = require("../lib/repo-store");
+const { applyRateLimit } = require("../lib/rate-limit");
 
 const RESEND_ENDPOINT = "https://api.resend.com/emails";
 const ORDER_STORE_PATH = "data/orders.json";
@@ -104,6 +105,17 @@ module.exports = async function handler(req, res) {
   if (req.method !== "POST") {
     res.setHeader("Allow", "POST");
     return res.status(405).json({ error: "Method not allowed" });
+  }
+
+  const limit = applyRateLimit(req, "checkout-order", {
+    windowMs: 5 * 60 * 1000,
+    max: 3,
+  });
+  if (!limit.allowed) {
+    res.setHeader("Retry-After", String(limit.retryAfterSeconds || 60));
+    return res.status(429).json({
+      error: "Hay muchos pedidos seguidos desde esta conexión. Probá nuevamente en unos minutos.",
+    });
   }
 
   const apiKey = process.env.RESEND_API_KEY;

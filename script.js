@@ -210,6 +210,22 @@ function escapeXml(value) {
     .replaceAll("'", "&#039;");
 }
 
+function safeImageUrl(value) {
+  const raw = String(value || "").trim();
+  if (!raw) return "";
+
+  try {
+    const parsed = new URL(raw, window.location.origin);
+    if (parsed.protocol === "http:" || parsed.protocol === "https:") {
+      return parsed.toString();
+    }
+  } catch {
+    return "";
+  }
+
+  return "";
+}
+
 function whatsappUrlFor(product) {
   const text = product ? `Hola Medano, quiero consultar por ${product.name}` : genericWhatsappText;
   return `${whatsappBase}?text=${encodeURIComponent(text)}`;
@@ -390,16 +406,16 @@ function renderCart() {
         <article class="cart-item">
           <div class="cart-item-top">
             <div>
-              <strong>${product.name}</strong>
-              <span class="cart-item-meta">${product.brand} · ${product.type}</span>
+              <strong>${escapeXml(product.name)}</strong>
+              <span class="cart-item-meta">${escapeXml(product.brand)} · ${escapeXml(product.type)}</span>
             </div>
-            <button class="cart-item-remove" type="button" data-cart-remove="${id}">Quitar</button>
+            <button class="cart-item-remove" type="button" data-cart-remove="${escapeXml(id)}">Quitar</button>
           </div>
           <div class="cart-item-top">
             <div class="cart-item-controls">
-              <button class="quantity-button" type="button" data-cart-decrease="${id}" aria-label="Disminuir">-</button>
+              <button class="quantity-button" type="button" data-cart-decrease="${escapeXml(id)}" aria-label="Disminuir">-</button>
               <span class="cart-item-qty">${qty}</span>
-              <button class="quantity-button" type="button" data-cart-increase="${id}" aria-label="Aumentar">+</button>
+              <button class="quantity-button" type="button" data-cart-increase="${escapeXml(id)}" aria-label="Aumentar">+</button>
             </div>
           </div>
         </article>
@@ -409,8 +425,9 @@ function renderCart() {
 }
 
 function productTemplate(product) {
-  const tags = product.tags.map((tag) => `<span>${tag}</span>`).join("");
-  const feature = product.feature ? `<span class="feature-label">${product.feature}</span>` : "";
+  const tags = product.tags.map((tag) => `<span>${escapeXml(tag)}</span>`).join("");
+  const feature = product.feature ? `<span class="feature-label">${escapeXml(product.feature)}</span>` : "";
+  const imageUrl = safeImageUrl(product.image);
   const price = product.showPrice !== true
     ? ""
     : `<div class="card-price"><strong>${escapeXml(product.price || "Consultar")}</strong>${product.oldPrice ? `<span>${escapeXml(product.oldPrice)}</span>` : ""}</div>`;
@@ -419,23 +436,23 @@ function productTemplate(product) {
     <article class="product-card">
       <div class="product-media">
         ${feature}
-        <img src="${product.image}" alt="${product.name}" loading="lazy" />
+        <img src="${escapeXml(imageUrl)}" alt="${escapeXml(product.name)}" loading="lazy" />
       </div>
       <div class="product-body">
         <div class="product-top">
           <div>
-            <span class="brand-line">${product.brand}</span>
-            <h3>${product.name}</h3>
+            <span class="brand-line">${escapeXml(product.brand)}</span>
+            <h3>${escapeXml(product.name)}</h3>
           </div>
-          <span class="badge">${product.type}</span>
+          <span class="badge">${escapeXml(product.type)}</span>
         </div>
-        <p>${product.description}</p>
+        <p>${escapeXml(product.description)}</p>
         <div class="product-meta">${tags}</div>
         ${price}
         <div class="price-row">
           <div class="card-actions">
-            <button class="primary-button" type="button" data-add-to-cart="${product.id}">Agregar</button>
-            <button class="secondary-button detail-button" type="button" data-product="${product.id}">Detalle</button>
+            <button class="primary-button" type="button" data-add-to-cart="${escapeXml(product.id)}">Agregar</button>
+            <button class="secondary-button detail-button" type="button" data-product="${escapeXml(product.id)}">Detalle</button>
           </div>
         </div>
       </div>
@@ -444,29 +461,30 @@ function productTemplate(product) {
 }
 
 function offerTemplate(product) {
+  const imageUrl = safeImageUrl(product.image);
   const price = product.showPrice !== true
     ? ""
     : `<div class="card-price"><strong>${escapeXml(product.price || "Consultar")}</strong>${product.oldPrice ? `<span>${escapeXml(product.oldPrice)}</span>` : ""}</div>`;
   return `
     <article class="offer-card">
       <div class="offer-image">
-        <img src="${product.image}" alt="${product.name}" loading="lazy" />
+        <img src="${escapeXml(imageUrl)}" alt="${escapeXml(product.name)}" loading="lazy" />
       </div>
       <div class="offer-body">
-        <span class="feature-label">${product.feature || "Oferta"}</span>
+        <span class="feature-label">${escapeXml(product.feature || "Oferta")}</span>
         <div class="product-top">
           <div>
-            <span class="brand-line">${product.brand}</span>
-            <h3>${product.name}</h3>
+            <span class="brand-line">${escapeXml(product.brand)}</span>
+            <h3>${escapeXml(product.name)}</h3>
           </div>
-          <span class="badge">${product.flavor}</span>
+          <span class="badge">${escapeXml(product.flavor)}</span>
         </div>
-        <p>${product.description}</p>
-        <div class="product-meta">${product.tags.map((tag) => `<span>${tag}</span>`).join("")}</div>
+        <p>${escapeXml(product.description)}</p>
+        <div class="product-meta">${product.tags.map((tag) => `<span>${escapeXml(tag)}</span>`).join("")}</div>
         ${price}
         <div class="price-row">
           <div class="card-actions">
-            <button class="primary-button" type="button" data-add-to-cart="${product.id}">Agregar</button>
+            <button class="primary-button" type="button" data-add-to-cart="${escapeXml(product.id)}">Agregar</button>
             <a class="secondary-button" href="${whatsappUrlFor(product)}" target="_blank" rel="noreferrer">Pedir</a>
           </div>
         </div>
@@ -476,19 +494,23 @@ function offerTemplate(product) {
 }
 
 function comboTemplate(product) {
+  const imageUrl = safeImageUrl(product.image);
   const price = product.showPrice !== true
     ? ""
     : `<div class="card-price"><strong>${escapeXml(product.price || "Consultar")}</strong>${product.oldPrice ? `<span>${escapeXml(product.oldPrice)}</span>` : ""}</div>`;
   return `
     <article class="combo-card">
-      <span class="feature-label">${product.feature || "Combo"}</span>
-      <h3>${product.name}</h3>
-      <p>${product.description}</p>
-      <div class="product-meta">${product.tags.map((tag) => `<span>${tag}</span>`).join("")}</div>
+      <div class="product-media">
+        <span class="feature-label">${escapeXml(product.feature || "Combo")}</span>
+        <img src="${escapeXml(imageUrl)}" alt="${escapeXml(product.name)}" loading="lazy" />
+      </div>
+      <h3>${escapeXml(product.name)}</h3>
+      <p>${escapeXml(product.description)}</p>
+      <div class="product-meta">${product.tags.map((tag) => `<span>${escapeXml(tag)}</span>`).join("")}</div>
       ${price}
       <div class="price-row">
         <div class="card-actions">
-          <button class="primary-button" type="button" data-add-to-cart="${product.id}">Agregar</button>
+          <button class="primary-button" type="button" data-add-to-cart="${escapeXml(product.id)}">Agregar</button>
           <a class="secondary-button" href="${whatsappUrlFor(product)}" target="_blank" rel="noreferrer">Reservar</a>
         </div>
       </div>
@@ -587,11 +609,39 @@ function openProductDetail(productId) {
   productDialog.showModal();
 }
 
+function openProductDetailSafe(productId) {
+  const product = products.find((entry) => entry.id === productId);
+  if (!product) return;
+
+  dialogImage.src = safeImageUrl(product.image);
+  dialogImage.alt = product.name;
+  dialogFeature.textContent = product.feature || product.goal;
+  dialogBrand.textContent = product.brand;
+  dialogName.textContent = product.name;
+  dialogType.textContent = product.type;
+  dialogDescription.textContent = product.description;
+  dialogFlavors.textContent = (product.flavors || [product.flavor]).join(", ");
+  if (product.showPrice !== true) {
+    dialogPriceBlock.hidden = true;
+  } else {
+    dialogPriceBlock.hidden = false;
+    dialogPrice.textContent = product.oldPrice
+      ? `${product.price || "Consultar"} · Antes ${product.oldPrice}`
+      : (product.price || "Consultar");
+  }
+  dialogDoes.textContent = product.does || product.goal;
+  dialogHow.textContent = product.how || "Consultar uso recomendado segun etiqueta y objetivo.";
+  dialogPair.textContent = product.pair || "Consultar combinaciones segun rutina y tolerancia.";
+  dialogTags.innerHTML = product.tags.map((tag) => `<span>${escapeXml(tag)}</span>`).join("");
+  dialogWhatsapp.href = whatsappUrlFor(product);
+  productDialog.showModal();
+}
+
 document.addEventListener("click", (event) => {
   const button = event.target.closest("[data-product]");
   if (!button) return;
 
-  openProductDetail(button.dataset.product);
+  openProductDetailSafe(button.dataset.product);
 });
 
 filterButtons.forEach((button) => {
@@ -630,7 +680,7 @@ advisorForm.addEventListener("submit", (event) => {
   };
 
   recommendation.innerHTML = `
-    <strong>Primera opcion: ${names || "consulta personalizada"}.</strong>
+    <strong>Primera opcion: ${escapeXml(names || "consulta personalizada")}.</strong>
     <p>${levelText[level]} Para cerrar compra, confirmar stock, etiqueta y contraindicaciones por WhatsApp.</p>
     <a class="secondary-button" href="${consultUrl}" target="_blank" rel="noreferrer">Consultar recomendacion</a>
   `;

@@ -1,4 +1,5 @@
 const { createSessionValue, setSessionCookie, verifyAdminPassword } = require("../../lib/admin-auth");
+const { applyRateLimit } = require("../../lib/rate-limit");
 
 async function readJsonBody(req) {
   const chunks = [];
@@ -18,6 +19,17 @@ module.exports = async function handler(req, res) {
   if (req.method !== "POST") {
     res.setHeader("Allow", "POST");
     return res.status(405).json({ error: "Method not allowed" });
+  }
+
+  const limit = applyRateLimit(req, "admin-login", {
+    windowMs: 15 * 60 * 1000,
+    max: 5,
+  });
+  if (!limit.allowed) {
+    res.setHeader("Retry-After", String(limit.retryAfterSeconds || 60));
+    return res.status(429).json({
+      error: "Demasiados intentos. Espera un momento e intenta de nuevo.",
+    });
   }
 
   if (!process.env.ADMIN_PASSWORD_HASH || !process.env.ADMIN_SESSION_SECRET) {
