@@ -28,6 +28,7 @@ const productFlavorsInput = document.querySelector("#productFlavors");
 const productTagsInput = document.querySelector("#productTags");
 const productPriceInput = document.querySelector("#productPrice");
 const productOldPriceInput = document.querySelector("#productOldPrice");
+const productShowPriceInput = document.querySelector("#productShowPrice");
 const productFeatureInput = document.querySelector("#productFeature");
 const productDescriptionInput = document.querySelector("#productDescription");
 const productDoesInput = document.querySelector("#productDoes");
@@ -174,6 +175,9 @@ function renderCatalogList() {
       const active = product.id === selectedProductId ? "is-active" : "";
       const feature = product.feature ? `<span>${escapeHtml(product.feature)}</span>` : "";
       const price = product.price ? `<strong>${escapeHtml(product.price)}</strong>` : "<strong>Sin precio</strong>";
+      const priceState = product.showPrice !== false
+        ? `<span class="catalog-price-state is-public">Precio publico</span>`
+        : `<span class="catalog-price-state">Precio oculto</span>`;
 
       return `
         <button class="catalog-item ${active}" type="button" data-edit-product="${escapeHtml(product.id)}">
@@ -188,6 +192,7 @@ function renderCatalogList() {
             <span>${escapeHtml(product.type || "Sin tipo")}</span>
             ${feature}
             ${price}
+            ${priceState}
           </div>
         </button>
       `;
@@ -219,6 +224,7 @@ function defaultProduct() {
     tags: [],
     price: "",
     oldPrice: "",
+    showPrice: true,
     feature: "",
     image: "",
   };
@@ -237,6 +243,7 @@ function setFormProduct(product) {
   productTagsInput.value = Array.isArray(product?.tags) ? product.tags.join(", ") : "";
   productPriceInput.value = product?.price || "";
   productOldPriceInput.value = product?.oldPrice || "";
+  productShowPriceInput.checked = product?.showPrice !== false;
   productFeatureInput.value = product?.feature || "";
   productDescriptionInput.value = product?.description || "";
   productDoesInput.value = product?.does || "";
@@ -280,6 +287,7 @@ function readFormProduct() {
     tags: splitList(productTagsInput.value),
     price: String(productPriceInput.value || "").trim(),
     oldPrice: String(productOldPriceInput.value || "").trim(),
+    showPrice: Boolean(productShowPriceInput.checked),
     feature: String(productFeatureInput.value || "").trim(),
     image: String(productImageInput.value || "").trim(),
   };

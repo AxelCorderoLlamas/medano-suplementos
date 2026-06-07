@@ -176,6 +176,8 @@ const dialogName = document.querySelector("#dialogName");
 const dialogType = document.querySelector("#dialogType");
 const dialogDescription = document.querySelector("#dialogDescription");
 const dialogFlavors = document.querySelector("#dialogFlavors");
+const dialogPrice = document.querySelector("#dialogPrice");
+const dialogPriceBlock = document.querySelector("#dialogPriceBlock");
 const dialogDoes = document.querySelector("#dialogDoes");
 const dialogHow = document.querySelector("#dialogHow");
 const dialogPair = document.querySelector("#dialogPair");
@@ -254,6 +256,7 @@ async function loadCatalog() {
       oldPrice: String(product.oldPrice || ""),
       feature: String(product.feature || ""),
       image: String(product.image || ""),
+      showPrice: product.showPrice !== false,
     }));
   } catch {
     return defaultProducts;
@@ -398,6 +401,9 @@ function renderCart() {
 function productTemplate(product) {
   const tags = product.tags.map((tag) => `<span>${tag}</span>`).join("");
   const feature = product.feature ? `<span class="feature-label">${product.feature}</span>` : "";
+  const price = product.showPrice === false
+    ? ""
+    : `<div class="card-price"><strong>${escapeXml(product.price || "Consultar")}</strong>${product.oldPrice ? `<span>${escapeXml(product.oldPrice)}</span>` : ""}</div>`;
 
   return `
     <article class="product-card">
@@ -415,6 +421,7 @@ function productTemplate(product) {
         </div>
         <p>${product.description}</p>
         <div class="product-meta">${tags}</div>
+        ${price}
         <div class="price-row">
           <div class="card-actions">
             <button class="primary-button" type="button" data-add-to-cart="${product.id}">Agregar</button>
@@ -427,6 +434,9 @@ function productTemplate(product) {
 }
 
 function offerTemplate(product) {
+  const price = product.showPrice === false
+    ? ""
+    : `<div class="card-price"><strong>${escapeXml(product.price || "Consultar")}</strong>${product.oldPrice ? `<span>${escapeXml(product.oldPrice)}</span>` : ""}</div>`;
   return `
     <article class="offer-card">
       <div class="offer-image">
@@ -443,6 +453,7 @@ function offerTemplate(product) {
         </div>
         <p>${product.description}</p>
         <div class="product-meta">${product.tags.map((tag) => `<span>${tag}</span>`).join("")}</div>
+        ${price}
         <div class="price-row">
           <div class="card-actions">
             <button class="primary-button" type="button" data-add-to-cart="${product.id}">Agregar</button>
@@ -455,12 +466,16 @@ function offerTemplate(product) {
 }
 
 function comboTemplate(product) {
+  const price = product.showPrice === false
+    ? ""
+    : `<div class="card-price"><strong>${escapeXml(product.price || "Consultar")}</strong>${product.oldPrice ? `<span>${escapeXml(product.oldPrice)}</span>` : ""}</div>`;
   return `
     <article class="combo-card">
       <span class="feature-label">${product.feature || "Combo"}</span>
       <h3>${product.name}</h3>
       <p>${product.description}</p>
       <div class="product-meta">${product.tags.map((tag) => `<span>${tag}</span>`).join("")}</div>
+      ${price}
       <div class="price-row">
         <div class="card-actions">
           <button class="primary-button" type="button" data-add-to-cart="${product.id}">Agregar</button>
@@ -548,6 +563,12 @@ function openProductDetail(productId) {
   dialogType.textContent = product.type;
   dialogDescription.textContent = product.description;
   dialogFlavors.textContent = (product.flavors || [product.flavor]).join(", ");
+  if (product.showPrice === false) {
+    dialogPriceBlock.hidden = true;
+  } else {
+    dialogPriceBlock.hidden = false;
+    dialogPrice.textContent = product.oldPrice ? `${product.price || "Consultar"} · Antes ${product.oldPrice}` : (product.price || "Consultar");
+  }
   dialogDoes.textContent = product.does || product.goal;
   dialogHow.textContent = product.how || "Consultar uso recomendado segun etiqueta y objetivo.";
   dialogPair.textContent = product.pair || "Consultar combinaciones segun rutina y tolerancia.";
