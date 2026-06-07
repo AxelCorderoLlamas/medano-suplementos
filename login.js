@@ -3,8 +3,8 @@ const passwordInput = document.querySelector("#passwordInput");
 const loginButton = document.querySelector("#loginButton");
 const loginStatus = document.querySelector("#loginStatus");
 const recaptchaWidget = document.querySelector("#recaptchaWidget");
-let recaptchaWidgetId = null;
 let recaptchaScriptPromise = null;
+let recaptchaLoaded = false;
 
 function setStatus(message, type = "") {
   loginStatus.textContent = message;
@@ -25,7 +25,7 @@ function loadRecaptchaScript() {
 
     const script = document.createElement("script");
     const lang = window.__RECAPTCHA_HL__ || "es-419";
-    script.src = `https://www.google.com/recaptcha/api.js?render=explicit&hl=${encodeURIComponent(lang)}`;
+    script.src = `https://www.google.com/recaptcha/api.js?hl=${encodeURIComponent(lang)}`;
     script.async = true;
     script.defer = true;
     script.onload = () => resolve(window.grecaptcha);
@@ -44,11 +44,12 @@ async function loadRecaptchaWidget() {
     throw new Error("Falta configurar Google reCAPTCHA en Vercel.");
   }
 
-  const grecaptcha = await loadRecaptchaScript();
-  recaptchaWidgetId = grecaptcha.render(recaptchaWidget, {
-    sitekey: payload.siteKey,
-    theme: "dark",
-  });
+  recaptchaWidget.innerHTML = `
+    <div class="g-recaptcha" data-sitekey="${payload.siteKey}" data-theme="dark"></div>
+  `;
+
+  await loadRecaptchaScript();
+  recaptchaLoaded = true;
 }
 
 async function checkSession() {
@@ -66,12 +67,12 @@ async function checkSession() {
 loginForm.addEventListener("submit", async (event) => {
   event.preventDefault();
 
-  if (recaptchaWidgetId === null || !window.grecaptcha) {
+  if (!recaptchaLoaded || !window.grecaptcha) {
     setStatus("Esperá a que cargue la verificacion de Google.", "error");
     return;
   }
 
-  const recaptchaToken = window.grecaptcha.getResponse(recaptchaWidgetId);
+  const recaptchaToken = window.grecaptcha.getResponse();
   if (!recaptchaToken) {
     setStatus("Completá la verificacion de Google para continuar.", "error");
     return;
@@ -94,17 +95,15 @@ loginForm.addEventListener("submit", async (event) => {
 
     const payload = await response.json().catch(() => ({}));
     if (!response.ok) {
-      if (window.grecaptcha && recaptchaWidgetId !== null) {
-        window.grecaptcha.reset(recaptchaWidgetId);
-      }
+      window.grecaptcha.reset();
       throw new Error(payload.error || "No se pudo iniciar sesion.");
     }
 
     setStatus("Acceso concedido.", "success");
     window.location.href = "/admin";
   } catch (error) {
-    if (window.grecaptcha && recaptchaWidgetId !== null) {
-      window.grecaptcha.reset(recaptchaWidgetId);
+    if (window.grecaptcha) {
+      window.grecaptcha.reset();
     }
     setStatus(error.message || "No se pudo iniciar sesion.", "error");
   } finally {
