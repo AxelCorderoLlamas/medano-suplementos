@@ -1967,6 +1967,19 @@ h3 {
     width: 100%;
   }
 
+  .admin-hero {
+    flex-direction: column;
+    align-items: start;
+  }
+
+  .admin-stats {
+    width: 100%;
+  }
+
+  .admin-card-actions {
+    width: 100%;
+  }
+
   .image-upload {
     grid-template-columns: 1fr;
   }
@@ -2023,6 +2036,19 @@ h3 {
     grid-template-columns: 1fr;
   }
 
+  .product-form-head {
+    gap: 14px;
+  }
+
+  .product-form-head .admin-card-actions,
+  .section-heading .admin-card-actions {
+    justify-content: flex-start;
+  }
+
+  .toggle-field {
+    align-items: flex-start;
+  }
+
   .product-grid,
   .featured-grid,
   .trust-strip,
@@ -2049,6 +2075,18 @@ h3 {
     max-height: 420px;
   }
 
+  .orders-list {
+    max-height: 520px;
+  }
+
+  .catalog-manager {
+    gap: 12px;
+  }
+
+  .admin-card {
+    padding: 18px;
+  }
+
   .floating-whatsapp {
     right: 14px;
     bottom: 14px;
@@ -2057,5 +2095,66 @@ h3 {
 
   h1 {
     font-size: clamp(2.9rem, 16vw, 4.8rem);
+  }
+
+  .admin-page {
+    padding: 14px;
+  }
+
+  .admin-topbar,
+  .admin-shell {
+    width: 100%;
+  }
+
+  .admin-topbar {
+    align-items: stretch;
+    flex-direction: column;
+  }
+
+  .admin-actions {
+    width: 100%;
+    justify-content: space-between;
+    flex-wrap: wrap;
+  }
+
+  .admin-tabs {
+    width: 100%;
+    padding: 8px;
+  }
+
+  .admin-tab {
+    width: 100%;
+    justify-content: center;
+  }
+
+  .admin-stats {
+    grid-template-columns: 1fr;
+  }
+
+  .catalog-list {
+    max-height: 360px;
+  }
+
+  .product-form textarea {
+    min-height: 84px;
+  }
+
+  .image-preview img {
+    min-height: 180px;
+  }
+
+  .dialog-metrics div,
+  .dialog-blocks section,
+  .order-card {
+    padding: 12px;
+  }
+
+  .product-dialog {
+    width: min(calc(100vw - 20px), 1040px);
+    max-height: calc(100vh - 20px);
+  }
+
+  .dialog-actions {
+    flex-direction: column;
   }
 }

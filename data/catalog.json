@@ -7,15 +7,24 @@
     "type": "Proteina",
     "goal": "Masa y recuperacion",
     "flavor": "Chocolate",
-    "flavors": ["Chocolate", "Vainilla", "Frutilla"],
+    "flavors": [
+      "Chocolate",
+      "Vainilla",
+      "Frutilla"
+    ],
     "description": "Proteina en polvo para completar la ingesta diaria y acompanar el post entreno.",
     "does": "Ayuda a cubrir proteina diaria cuando cuesta llegar solo con comidas.",
     "how": "Se suele usar en batido, desayuno o post entreno. Confirmar porcion segun etiqueta.",
     "pair": "Combina bien con creatina monohidratada o con Crea Shock si buscas un stack de entreno.",
-    "tags": ["Whey", "Post entreno", "Mas consultado"],
+    "tags": [
+      "Whey",
+      "Post entreno",
+      "Mas consultado"
+    ],
     "price": "$25.990",
     "feature": "Mas consultado",
-    "image": "https://acdn-us.mitiendanube.com/stores/001/354/710/products/whey-pro-1kg-nutrilab-6d8919ec15cd33483017339392907947-480-0.webp"
+    "image": "https://acdn-us.mitiendanube.com/stores/001/354/710/products/whey-pro-1kg-nutrilab-6d8919ec15cd33483017339392907947-480-0.webp",
+    "showPrice": false
   },
   {
     "id": "nutrilab-crea-shock-cafeina",
@@ -25,16 +34,24 @@
     "type": "Pre entreno",
     "goal": "Energia y foco",
     "flavor": "Frutal",
-    "flavors": ["Frutal", "Citrus"],
+    "flavors": [
+      "Frutal",
+      "Citrus"
+    ],
     "description": "Creatina con cafeina para entrenamientos donde se busca empuje previo.",
     "does": "Apunta a energia, foco y soporte para esfuerzos intensos antes de entrenar.",
     "how": "Usar antes del entrenamiento y revisar tolerancia a cafeina. Evitar cerca del descanso.",
     "pair": "Combina con whey para cubrir recuperacion despues de entrenar.",
-    "tags": ["Cafeina", "Pre entreno", "Foco"],
+    "tags": [
+      "Cafeina",
+      "Pre entreno",
+      "Foco"
+    ],
     "price": "$21.060",
     "oldPrice": "$23.380",
     "feature": "Stock visto",
-    "image": "https://acdn-us.mitiendanube.com/stores/001/354/710/products/crea-shok-300g-nutrilab-b2844f81f8ac1ef75b17339387539796-480-0.webp"
+    "image": "https://acdn-us.mitiendanube.com/stores/001/354/710/products/crea-shok-300g-nutrilab-b2844f81f8ac1ef75b17339387539796-480-0.webp",
+    "showPrice": false
   },
   {
     "id": "creatina-monohidratada-300g",
@@ -44,16 +61,23 @@
     "type": "Creatina",
     "goal": "Fuerza y potencia",
     "flavor": "Sin sabor",
-    "flavors": ["Sin sabor"],
+    "flavors": [
+      "Sin sabor"
+    ],
     "description": "Opcion clasica para rendimiento en esfuerzos cortos e intensos.",
     "does": "Soporta fuerza, potencia y rendimiento repetido en entrenamientos intensos.",
     "how": "Uso diario segun etiqueta. No depende necesariamente del horario de entrenamiento.",
     "pair": "Combina bien con proteina whey y una alimentacion suficiente.",
-    "tags": ["Sin sabor", "Uso diario", "Fuerza"],
+    "tags": [
+      "Sin sabor",
+      "Uso diario",
+      "Fuerza"
+    ],
     "price": "$31.600",
     "oldPrice": "$34.820",
     "feature": "Oferta",
-    "image": "https://acdn-us.mitiendanube.com/stores/001/354/710/products/creatina-300g-doy-pack-star-nutrition-c009a6a92968d1398717195988049794-480-0.webp"
+    "image": "https://acdn-us.mitiendanube.com/stores/001/354/710/products/creatina-300g-doy-pack-star-nutrition-c009a6a92968d1398717195988049794-480-0.webp",
+    "showPrice": false
   },
   {
     "id": "whey-protein-1kg",
@@ -63,16 +87,25 @@
     "type": "Proteina",
     "goal": "Masa muscular",
     "flavor": "Chocolate",
-    "flavors": ["Chocolate", "Vainilla", "Cookies"],
+    "flavors": [
+      "Chocolate",
+      "Vainilla",
+      "Cookies"
+    ],
     "description": "Formato de whey proteina para uso diario y practico en casa o gimnasio.",
     "does": "Aporta proteina practica para desayuno, merienda o post entreno.",
     "how": "Preparar con agua o leche segun preferencia y objetivo.",
     "pair": "Puede combinarse con creatina o carbohidratos si el objetivo es volumen.",
-    "tags": ["Whey", "Recuperacion", "Formato 1kg"],
+    "tags": [
+      "Whey",
+      "Recuperacion",
+      "Formato 1kg"
+    ],
     "price": "$14.890",
     "oldPrice": "$16.900",
     "feature": "Oferta",
-    "image": "https://acdn-us.mitiendanube.com/stores/001/354/710/products/frente1-151c87ba61e0c3d3fc16009772401321-480-0.webp"
+    "image": "https://acdn-us.mitiendanube.com/stores/001/354/710/products/frente1-151c87ba61e0c3d3fc16009772401321-480-0.webp",
+    "showPrice": false
   },
   {
     "id": "combo-whey-pro-crea-shock",
@@ -82,16 +115,23 @@
     "type": "Combo",
     "goal": "Entreno completo",
     "flavor": "Chocolate + Frutal",
-    "flavors": ["Chocolate + Frutal"],
+    "flavors": [
+      "Chocolate + Frutal"
+    ],
     "description": "Combo visto en historias: proteina para recuperacion y cafeina/creatina para pre entreno.",
     "does": "Cubre dos momentos clave: pre entreno con energia y post entreno con proteina.",
     "how": "Crea Shock antes de entrenar; Whey Pro como batido diario o post entreno.",
     "pair": "Es un stack cerrado. Se puede sumar creatina pura solo si corresponde.",
-    "tags": ["Combo", "Proteina", "Cafeina"],
+    "tags": [
+      "Combo",
+      "Proteina",
+      "Cafeina"
+    ],
     "price": "$34.850",
     "oldPrice": "$42.726",
     "feature": "Historia IG",
-    "image": "https://acdn-us.mitiendanube.com/stores/001/354/710/products/promo-whey-pro-creashock-nutrilab-b2673bda9b3ce9a30817376581984017-480-0.webp"
+    "image": "https://acdn-us.mitiendanube.com/stores/001/354/710/products/promo-whey-pro-creashock-nutrilab-b2673bda9b3ce9a30817376581984017-480-0.webp",
+    "showPrice": false
   },
   {
     "id": "vitamina-c-150g",
@@ -101,15 +141,22 @@
     "type": "Vitaminas",
     "goal": "Bienestar",
     "flavor": "Naranja",
-    "flavors": ["Naranja"],
+    "flavors": [
+      "Naranja"
+    ],
     "description": "Suplemento de vitamina C en polvo para sumar a la rutina diaria.",
     "does": "Aporta vitamina C para soporte general dentro de una rutina de bienestar.",
     "how": "Usar segun etiqueta, idealmente como parte de una rutina constante.",
     "pair": "Puede combinarse con multivitaminicos o minerales segun necesidad.",
-    "tags": ["Vitamina C", "Naranja", "Antioxidante"],
+    "tags": [
+      "Vitamina C",
+      "Naranja",
+      "Antioxidante"
+    ],
     "price": "$10.900",
     "feature": "Salud diaria",
-    "image": "https://acdn-us.mitiendanube.com/stores/001/354/710/products/vitamina-c-150g-d692d5d9285d3e703717267805314775-480-0.webp"
+    "image": "https://acdn-us.mitiendanube.com/stores/001/354/710/products/vitamina-c-150g-d692d5d9285d3e703717267805314775-480-0.webp",
+    "showPrice": false
   },
   {
     "id": "aminoacidos-gentech",
@@ -119,15 +166,23 @@
     "type": "Recuperacion",
     "goal": "Recuperacion",
     "flavor": "Frutilla",
-    "flavors": ["Frutilla", "Tropical"],
+    "flavors": [
+      "Frutilla",
+      "Tropical"
+    ],
     "description": "Alternativa para rutinas con alto volumen de entrenamiento.",
     "does": "Apunta a acompanar recuperacion en rutinas con mucho volumen.",
     "how": "Suele usarse intra o post entreno segun producto y etiqueta.",
     "pair": "Combina con whey si el objetivo principal es recuperacion.",
-    "tags": ["Intra entreno", "Recuperacion", "Rutina"],
+    "tags": [
+      "Intra entreno",
+      "Recuperacion",
+      "Rutina"
+    ],
     "price": "Consultar",
     "feature": "Recuperacion",
-    "image": "https://images.unsplash.com/photo-1582719478250-c89cae4dc85b?auto=format&fit=crop&w=900&q=85"
+    "image": "https://images.unsplash.com/photo-1582719478250-c89cae4dc85b?auto=format&fit=crop&w=900&q=85",
+    "showPrice": false
   },
   {
     "id": "quemador-termogenico",
@@ -137,14 +192,21 @@
     "type": "Definicion",
     "goal": "Definicion",
     "flavor": "Sin sabor",
-    "flavors": ["Sin sabor"],
+    "flavors": [
+      "Sin sabor"
+    ],
     "description": "Producto sensible a tolerancia individual. Consultar antes de usar.",
     "does": "Busca apoyar energia y definicion, pero depende mucho de tolerancia individual.",
     "how": "Consultar antes de usar, especialmente si sos sensible a estimulantes.",
     "pair": "Puede combinarse con proteina, pero conviene evitar mezclar estimulantes.",
-    "tags": ["Consulta previa", "Energia", "Definicion"],
+    "tags": [
+      "Consulta previa",
+      "Energia",
+      "Definicion"
+    ],
     "price": "Consultar",
     "feature": "Definicion",
-    "image": "https://images.unsplash.com/photo-1596457224318-4c9eaf5f4f2f?auto=format&fit=crop&w=900&q=85"
+    "image": "https://images.unsplash.com/photo-1596457224318-4c9eaf5f4f2f?auto=format&fit=crop&w=900&q=85",
+    "showPrice": false
   }
 ]
