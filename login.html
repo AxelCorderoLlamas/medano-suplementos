@@ -7,6 +7,8 @@
     <meta name="robots" content="noindex, nofollow" />
     <link rel="preconnect" href="https://fonts.googleapis.com" />
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+    <link rel="preconnect" href="https://www.google.com" />
+    <link rel="preconnect" href="https://www.gstatic.com" crossorigin />
     <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800;900&family=Rajdhani:wght@500;600;700;800&display=swap" rel="stylesheet" />
     <link rel="stylesheet" href="./styles.css" />
   </head>
@@ -31,10 +33,10 @@
             Clave
             <input type="password" id="passwordInput" name="password" autocomplete="current-password" placeholder="Clave segura" required />
           </label>
-          <label class="robot-check">
-            <input type="checkbox" id="robotCheck" name="robotCheck" required />
-            <span>No soy un robot</span>
-          </label>
+          <div class="recaptcha-wrap">
+            <div id="recaptchaWidget" class="recaptcha-widget"></div>
+            <p class="auth-hint">Completa la verificacion de Google antes de entrar.</p>
+          </div>
           <button class="primary-button" type="submit" id="loginButton">Entrar</button>
           <p class="auth-status" id="loginStatus" aria-live="polite"></p>
         </form>
@@ -42,6 +44,9 @@
         <a class="secondary-button auth-back" href="/">Volver al sitio</a>
       </section>
     </main>
+    <script>
+      window.__RECAPTCHA_HL__ = "es-419";
+    </script>
     <script src="./login.js"></script>
   </body>
 </html>

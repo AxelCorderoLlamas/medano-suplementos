@@ -42,6 +42,8 @@ Variables requeridas para login:
 
 - `ADMIN_PASSWORD_HASH`
 - `ADMIN_SESSION_SECRET`
+- `RECAPTCHA_SITE_KEY`
+- `RECAPTCHA_SECRET_KEY`
 
 Formato de `ADMIN_PASSWORD_HASH`:
 
@@ -60,6 +62,12 @@ Para persistencia del catalogo y pedidos en GitHub:
 - `GITHUB_BRANCH` (opcional, por defecto `main`)
 
 El `GITHUB_TOKEN` necesita permisos de lectura y escritura sobre el repositorio.
+
+Para Google reCAPTCHA:
+
+- usar reCAPTCHA v2 checkbox
+- agregar el dominio de produccion en la consola de reCAPTCHA
+- si queres probar en local, habilitar `localhost` en esa clave o usar una clave separada de desarrollo
 
 ## Imagenes del catalogo
 

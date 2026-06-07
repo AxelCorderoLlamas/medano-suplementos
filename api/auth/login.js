@@ -1,6 +1,7 @@
 const { createSessionValue, setSessionCookie, verifyAdminPassword } = require("../../lib/admin-auth");
 const { applyRateLimit } = require("../../lib/rate-limit");
 const { clearLoginFailures, isLoginLocked, registerLoginFailure } = require("../../lib/login-guard");
+const { verifyRecaptchaToken } = require("../../lib/recaptcha");
 
 async function readJsonBody(req) {
   const chunks = [];
@@ -47,11 +48,24 @@ module.exports = async function handler(req, res) {
     });
   }
 
+  if (!process.env.RECAPTCHA_SECRET_KEY) {
+    return res.status(500).json({
+      error: "Falta configurar RECAPTCHA_SECRET_KEY en el entorno.",
+    });
+  }
+
   let body;
   try {
     body = await readJsonBody(req);
   } catch {
     return res.status(400).json({ error: "El login no tiene un JSON valido." });
+  }
+
+  const captcha = await verifyRecaptchaToken(body.recaptchaToken, req);
+  if (!captcha.ok) {
+    return res.status(400).json({
+      error: captcha.error || "No se pudo validar el captcha.",
+    });
   }
 
   const password = String(body.password || "");
