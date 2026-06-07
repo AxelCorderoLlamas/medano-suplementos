@@ -749,6 +749,7 @@ checkoutForm.addEventListener("submit", async (event) => {
     name: String(formData.get("name") || "").trim(),
     email: String(formData.get("email") || "").trim(),
     phone: String(formData.get("phone") || "").trim(),
+    company: String(formData.get("company") || "").trim(),
     delivery: String(formData.get("delivery") || "").trim(),
     notes: String(formData.get("notes") || "").trim(),
   };

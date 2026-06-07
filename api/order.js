@@ -138,6 +138,10 @@ module.exports = async function handler(req, res) {
   const customer = body.customer || {};
   const items = Array.isArray(body.items) ? body.items.filter(Boolean) : [];
 
+  if (String(customer.company || "").trim()) {
+    return res.status(400).json({ error: "Pedido rechazado." });
+  }
+
   if (!customer.name || !customer.email || !customer.phone || !customer.delivery || !items.length) {
     return res.status(400).json({ error: "Faltan datos del pedido." });
   }

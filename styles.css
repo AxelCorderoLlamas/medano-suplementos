@@ -676,6 +676,14 @@ h3 {
   min-height: 110px;
 }
 
+.honeypot-field {
+  position: absolute;
+  left: -9999px;
+  width: 1px;
+  height: 1px;
+  overflow: hidden;
+}
+
 .checkout-submit {
   width: 100%;
 }
