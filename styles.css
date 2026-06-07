@@ -1363,17 +1363,26 @@ h3 {
 
 .catalog-manager {
   display: grid;
-  grid-template-columns: minmax(280px, 0.9fr) minmax(0, 1.1fr);
+  grid-template-columns: minmax(290px, 0.78fr) minmax(0, 1.22fr);
+  grid-template-rows: auto auto;
   gap: 16px;
   align-items: start;
 }
 
 .catalog-list {
+  grid-column: 1;
+  grid-row: 1;
   display: grid;
   gap: 10px;
   max-height: 900px;
   overflow: auto;
   padding-right: 4px;
+}
+
+#catalogCountStatus {
+  grid-column: 1 / -1;
+  grid-row: 2;
+  margin-top: -4px;
 }
 
 .catalog-item {
@@ -1444,8 +1453,12 @@ h3 {
 }
 
 .product-form {
+  grid-column: 2;
+  grid-row: 1;
   display: grid;
   gap: 12px;
+  align-content: start;
+  min-width: 0;
 }
 
 .product-form-head {
@@ -1788,6 +1801,13 @@ h3 {
   .catalog-manager,
   .admin-grid {
     grid-template-columns: 1fr;
+  }
+
+  .catalog-list,
+  .product-form,
+  #catalogCountStatus {
+    grid-column: auto;
+    grid-row: auto;
   }
 
   .hero-visual {
