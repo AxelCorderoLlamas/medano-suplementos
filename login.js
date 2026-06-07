@@ -1,5 +1,6 @@
 const loginForm = document.querySelector("#loginForm");
 const passwordInput = document.querySelector("#passwordInput");
+const robotCheck = document.querySelector("#robotCheck");
 const loginButton = document.querySelector("#loginButton");
 const loginStatus = document.querySelector("#loginStatus");
 
@@ -23,6 +24,11 @@ async function checkSession() {
 
 loginForm.addEventListener("submit", async (event) => {
   event.preventDefault();
+
+  if (!robotCheck.checked) {
+    setStatus("Marcá la casilla para continuar.", "error");
+    return;
+  }
 
   loginButton.disabled = true;
   setStatus("Validando acceso...");
