@@ -256,7 +256,7 @@ async function loadCatalog() {
       oldPrice: String(product.oldPrice || ""),
       feature: String(product.feature || ""),
       image: String(product.image || ""),
-      showPrice: product.showPrice !== false,
+      showPrice: product.showPrice === true,
     }));
   } catch {
     return defaultProducts;
@@ -401,7 +401,7 @@ function renderCart() {
 function productTemplate(product) {
   const tags = product.tags.map((tag) => `<span>${tag}</span>`).join("");
   const feature = product.feature ? `<span class="feature-label">${product.feature}</span>` : "";
-  const price = product.showPrice === false
+  const price = product.showPrice !== true
     ? ""
     : `<div class="card-price"><strong>${escapeXml(product.price || "Consultar")}</strong>${product.oldPrice ? `<span>${escapeXml(product.oldPrice)}</span>` : ""}</div>`;
 
@@ -434,7 +434,7 @@ function productTemplate(product) {
 }
 
 function offerTemplate(product) {
-  const price = product.showPrice === false
+  const price = product.showPrice !== true
     ? ""
     : `<div class="card-price"><strong>${escapeXml(product.price || "Consultar")}</strong>${product.oldPrice ? `<span>${escapeXml(product.oldPrice)}</span>` : ""}</div>`;
   return `
@@ -466,7 +466,7 @@ function offerTemplate(product) {
 }
 
 function comboTemplate(product) {
-  const price = product.showPrice === false
+  const price = product.showPrice !== true
     ? ""
     : `<div class="card-price"><strong>${escapeXml(product.price || "Consultar")}</strong>${product.oldPrice ? `<span>${escapeXml(product.oldPrice)}</span>` : ""}</div>`;
   return `
@@ -563,7 +563,7 @@ function openProductDetail(productId) {
   dialogType.textContent = product.type;
   dialogDescription.textContent = product.description;
   dialogFlavors.textContent = (product.flavors || [product.flavor]).join(", ");
-  if (product.showPrice === false) {
+  if (product.showPrice !== true) {
     dialogPriceBlock.hidden = true;
   } else {
     dialogPriceBlock.hidden = false;

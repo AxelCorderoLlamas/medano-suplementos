@@ -175,7 +175,7 @@ function renderCatalogList() {
       const active = product.id === selectedProductId ? "is-active" : "";
       const feature = product.feature ? `<span>${escapeHtml(product.feature)}</span>` : "";
       const price = product.price ? `<strong>${escapeHtml(product.price)}</strong>` : "<strong>Sin precio</strong>";
-      const priceState = product.showPrice !== false
+      const priceState = product.showPrice === true
         ? `<span class="catalog-price-state is-public">Precio publico</span>`
         : `<span class="catalog-price-state">Precio oculto</span>`;
 
@@ -224,7 +224,7 @@ function defaultProduct() {
     tags: [],
     price: "",
     oldPrice: "",
-    showPrice: true,
+    showPrice: false,
     feature: "",
     image: "",
   };
@@ -243,7 +243,7 @@ function setFormProduct(product) {
   productTagsInput.value = Array.isArray(product?.tags) ? product.tags.join(", ") : "";
   productPriceInput.value = product?.price || "";
   productOldPriceInput.value = product?.oldPrice || "";
-  productShowPriceInput.checked = product?.showPrice !== false;
+  productShowPriceInput.checked = product?.showPrice === true;
   productFeatureInput.value = product?.feature || "";
   productDescriptionInput.value = product?.description || "";
   productDoesInput.value = product?.does || "";
