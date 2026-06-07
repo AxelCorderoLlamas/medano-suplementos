@@ -11,6 +11,12 @@ Sitio estatico para Medano Suplementos con catalogo, tienda, admin y envio de pe
 - Panel admin con login en `/login` y dashboard en `/admin`.
 - Contacto por Instagram y WhatsApp.
 
+## Documentacion
+
+- [Documentacion funcional](docs/funcional.md)
+- [Documentacion tecnica](docs/tecnica.md)
+- [Guia para la persona](docs/handoff.md)
+
 ## Deploy
 
 Este proyecto es estatico. En Vercel se puede importar el repositorio y usar:
